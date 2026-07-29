@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfólio de Kamylle Frazão Arquitetura." />
+    <title>Kamylle Frazão | Arquitetura</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./public/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="topo">
+      <nav class="navbar shell" aria-label="Navegação principal">
+        <a class="brand" href="#topo" aria-label="Kamylle Frazão Arquitetura - início">
+          <span class="brand-mark">KF</span>
+          <span class="brand-name">Kamylle Frazão<small>Arquitetura</small></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
+          <span></span><span></span><span></span><span class="sr-only">Abrir menu</span>
+        </button>
+        <div class="nav-links" id="primary-menu">
+          <a class="is-active" href="#inicio">Início</a>
+          <a href="#sobre">Sobre mim</a>
+          <a href="#projetos">Projetos</a>
+          <a href="#experience-title">Experiência</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#contato">Contato</a>
+          <a class="nav-admin" href="login.html" aria-label="Acessar painel administrativo">Área ADM <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero shell" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Arquitetura que acolhe</p>
+          <h1 id="hero-title">Espaços que contam a <em>sua história.</em></h1>
+          <p class="hero-text">Transformo ideias em ambientes singulares, com beleza, propósito e soluções pensadas para a forma como você vive.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./public/assets/images/Projeto2.jpg" download>Baixar portfólio <span aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="#contato">Falar comigo <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-note"><span class="line"></span>Atendimento presencial e on-line</div>
+        </div>
+        <div class="hero-art reveal">
+          <div class="arch arch-one" aria-hidden="true"></div>
+          <div class="arch arch-two" aria-hidden="true"></div>
+          <figure class="hero-photo">
+            <img src="./public/assets/images/arquiteta.jpeg" alt="Kamylle Frazão sorrindo com flores nas mãos" />
+          </figure>
+          <div class="hero-stamp" aria-label="Projetos autorais">
+            <span>Projetos</span><strong>autorais</strong><i>✦</i>
+          </div>
+        </div>
+      </section>
+
+      <section class="about section shell" id="sobre" aria-labelledby="about-title">
+        <div class="about-media reveal">
+          <div class="about-shape"></div>
+          <img src="./public/assets/images/arquiteta.jpeg" alt="Retrato de Kamylle Frazão" />
+          <span class="portrait-caption">KF<br /><small>desde 2016</small></span>
+        </div>
+        <div class="about-content reveal">
+          <p class="eyebrow">Sobre mim</p>
+          <h2 id="about-title">Criar é dar forma ao que <em>importa.</em></h2>
+          <div class="rich-copy">
+            <p>Sou um profissional apaixonado por tecnologia, design e inovação digital. Gosto de transformar ideias em soluções funcionais, unindo criatividade e lógica para desenvolver experiências modernas e intuitivas.</p>
+            <p>Atualmente atuo na área de desenvolvimento web e aplicações, com interesse especial em front-end, interfaces responsivas e boas práticas de programação. Estou sempre em busca de novos conhecimentos, acompanhando tendências do mercado e aprimorando minhas habilidades em tecnologias modernas.</p>
+            <p>Acredito que dedicação, aprendizado contínuo e atenção aos detalhes são fundamentais para criar projetos de qualidade. Meu objetivo é participar de projetos que gerem impacto positivo, proporcionando soluções eficientes e uma excelente experiência para o usuário.</p>
+            <p>Fora da tecnologia, valorizo momentos de descanso, filmes, jogos e atividades que estimulem a criatividade e o desenvolvimento pessoal.</p>
+          </div>
+          <div class="values-grid">
+            <div><span class="value-icon">✦</span><strong>Atendimento<br />personalizado</strong></div>
+            <div><span class="value-icon">⌂</span><strong>Projetos<br />autorais</strong></div>
+            <div><span class="value-icon">⌘</span><strong>Soluções<br />funcionais</strong></div>
+            <div><span class="value-icon">♡</span><strong>Estética e<br />bem-estar</strong></div>
+          </div>
+          <a class="text-link" href="#contato">Conheça mais sobre mim <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="projects section" id="projetos" aria-labelledby="projects-title">
+        <div class="shell">
+          <div class="section-heading centered reveal">
+            <p class="eyebrow">Portfólio selecionado</p>
+            <h2 id="projects-title">Projetos que ganham <em>vida.</em></h2>
+            <p>Da primeira conversa ao último detalhe, cada ambiente é feito para ser vivido.</p>
+          </div>
+          <div class="project-filters reveal" role="group" aria-label="Filtrar projetos">
+            <button class="filter is-active" type="button" data-filter="all">Todos</button>
+            <button class="filter" type="button" data-filter="residencial">Residencial</button>
+            <button class="filter" type="button" data-filter="interiores">Interiores</button>
+            <button class="filter" type="button" data-filter="comercial">Comercial</button>
+          </div>
+          <div class="project-grid">
+            <article class="project-card reveal" data-category="interiores">
+              <a href="#contato" class="project-image"><img src="./public/assets/images/Projeto1.jpg" alt="Ambiente de projeto de interiores" /><span>Ver projeto <b>↗</b></span></a>
+              <div class="project-info"><p>Interiores</p><h3>Refúgio Urbano</h3><span>São Paulo, SP</span><small>Leveza e conforto para desacelerar em meio à cidade.</small></div>
+            </article>
+            <article class="project-card reveal" data-category="residencial">
+              <a href="#contato" class="project-image"><img src="./public/assets/images/Projeto2.jpg" alt="Fachada de residência contemporânea" /><span>Ver projeto <b>↗</b></span></a>
+              <div class="project-info"><p>Residencial</p><h3>Casa Horizonte</h3><span>Ribeirão Preto, SP</span><small>Volumes, luz natural e conexão com o exterior.</small></div>
+            </article>
+            <article class="project-card reveal" data-category="comercial">
+              <a href="#contato" class="project-image"><img src="./public/assets/images/Projeto3.jpg" alt="Projeto comercial com composição arquitetônica" /><span>Ver projeto <b>↗</b></span></a>
+              <div class="project-info"><p>Comercial</p><h3>Ateliê Alma</h3><span>Campinas, SP</span><small>Um espaço de encontros com identidade e afeto.</small></div>
+            </article>
+          </div>
+          <div class="section-action reveal"><a class="button button-secondary" href="#contato">Ver todos os projetos <span aria-hidden="true">→</span></a></div>
+        </div>
+      </section>
+
+      <section class="experience shell section" aria-labelledby="experience-title">
+        <div class="experience-title reveal"><p class="eyebrow">Em cada detalhe</p><h2 id="experience-title">Experiência que se traduz em <em>confiança.</em></h2></div>
+        <div class="metrics reveal">
+          <div class="metric"><strong><span data-count="8">0</span>+</strong><p>Anos de<br />atuação</p></div>
+          <div class="metric"><strong><span data-count="120">0</span>+</strong><p>Projetos<br />realizados</p></div>
+          <div class="metric"><strong><span data-count="98">0</span>%</strong><p>Clientes<br />satisfeitos</p></div>
+          <div class="metric"><strong><span data-count="12">0</span></strong><p>Menções e<br />publicações</p></div>
+        </div>
+      </section>
+
+      <section class="services section" id="servicos" aria-labelledby="services-title">
+        <div class="shell">
+          <div class="section-heading split-heading reveal"><div><p class="eyebrow">Como posso ajudar</p><h2 id="services-title">Do desejo à <em>realização.</em></h2></div><p>Uma jornada tranquila, transparente e feita sob medida para você.</p></div>
+          <div class="service-grid">
+            <article class="service-card reveal"><span class="service-number">01</span><div class="service-icon">⌑</div><h3>Projeto arquitetônico</h3><p>Desenvolvimento de projetos personalizados que unem estética, funcionalidade e conforto, valorizando cada detalhe do seu espaço.</p><a href="#contato" aria-label="Saber mais sobre projeto arquitetônico">→</a></article>
+            <article class="service-card featured reveal"><span class="service-number">02</span><div class="service-icon">◫</div><h3>Projeto de interiores</h3><p>Criação de ambientes internos harmoniosos, sofisticados e funcionais, pensados para refletir o estilo e as necessidades de cada cliente.</p><a href="#contato" aria-label="Saber mais sobre projeto de interiores">→</a></article>
+            <article class="service-card reveal"><span class="service-number">03</span><div class="service-icon">⌇</div><h3>Acompanhamento de obras</h3><p>Suporte técnico durante toda a execução da obra, garantindo qualidade, organização e fidelidade ao projeto aprovado.</p><a href="#contato" aria-label="Saber mais sobre acompanhamento de obras">→</a></article>
+            <article class="service-card reveal"><span class="service-number">04</span><div class="service-icon">✧</div><h3>Consultoria arquitetônica</h3><p>Orientação especializada para auxiliar em decisões de reforma, construção ou decoração, otimizando espaços e investimentos.</p><a href="#contato" aria-label="Saber mais sobre consultoria arquitetônica">→</a></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonials section" aria-labelledby="testimonial-title">
+        <div class="shell testimonials-layout">
+          <div class="testimonial-intro reveal"><p class="eyebrow">Palavras que guardo</p><h2 id="testimonial-title">Histórias de quem <em>viveu.</em></h2><div class="slider-controls"><button class="slider-arrow" type="button" data-slide="prev" aria-label="Depoimento anterior">←</button><button class="slider-arrow" type="button" data-slide="next" aria-label="Próximo depoimento">→</button></div></div>
+          <div class="testimonial-slider reveal" aria-live="polite">
+            <article class="testimonial is-visible"><span class="quote-mark">“</span><blockquote>Fiquei encantada com o resultado do projeto. O atendimento foi atencioso desde o início e cada detalhe foi pensado para deixar minha casa mais funcional e acolhedora.</blockquote><footer><span class="avatar avatar-m">MA</span><div><strong>Mariana Alves</strong><small>Projeto Residencial</small></div></footer></article>
+            <article class="testimonial"><span class="quote-mark">“</span><blockquote>O acompanhamento da obra trouxe muita segurança durante todo o processo. O projeto foi executado exatamente como planejado e o resultado superou minhas expectativas.</blockquote><footer><span class="avatar avatar-r">RM</span><div><strong>Ricardo Monteiro</strong><small>Projeto Casa Horizonte</small></div></footer></article>
+            <article class="testimonial"><span class="quote-mark">“</span><blockquote>A consultoria arquitetônica foi essencial para aproveitar melhor os espaços do meu apartamento. Recebi orientações práticas, criativas e totalmente alinhadas ao meu estilo.</blockquote><footer><span class="avatar avatar-c">CF</span><div><strong>Camila Ferreira</strong><small>Consultoria de interiores</small></div></footer></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta shell reveal" aria-labelledby="cta-title">
+        <img src="./public/assets/images/Projeto1.jpg" alt="Ambiente arquitetônico acolhedor" />
+        <div class="cta-overlay"></div>
+        <div class="cta-copy"><p class="eyebrow">Vamos criar juntas?</p><h2 id="cta-title">Seu próximo capítulo começa <em>aqui.</em></h2><p>Vamos transformar o seu espaço em um lugar que faça sentido para a sua história.</p><div class="cta-actions"><a class="button button-light" href="#contato">Falar comigo <span>↗</span></a><a class="button button-ghost-light" href="#projetos">Ver projetos</a></div></div>
+      </section>
+
+      <section class="contact section shell" id="contato" aria-labelledby="contact-title">
+        <div class="contact-intro reveal"><p class="eyebrow">Entre em contato</p><h2 id="contact-title">Vamos conversar sobre seu <em>projeto?</em></h2><p>Conte um pouco sobre o que você imagina. Em breve, retorno para começarmos essa jornada.</p><ul class="contact-list"><li><span>✆</span><a href="tel:+5516999999999">(16) 99999-9999</a></li><li><span>✉</span><a href="mailto:ola@kamyllefrazão.com.br">ola@kamyllefrazão.com.br</a></li><li><span>◎</span><a href="#topo">@kamyllefrazao.arq</a></li><li><span>⌖</span><span>Ribeirão Preto, SP</span></li></ul></div>
+        <form class="contact-form card-surface reveal" data-contact-form>
+          <div class="form-row"><label>Nome<input required name="nome" type="text" placeholder="Como você gostaria de ser chamado?" /></label><label>E-mail<input required name="email" type="email" placeholder="voce@email.com" /></label></div>
+          <label>Telefone<input name="telefone" type="tel" placeholder="(00) 00000-0000" /></label>
+          <label>Mensagem<textarea required name="mensagem" rows="5" placeholder="Me conte um pouco sobre o seu projeto..."></textarea></label>
+          <button class="button button-primary" type="submit">Enviar mensagem <span aria-hidden="true">→</span></button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div><a class="brand brand-footer" href="#topo"><span class="brand-mark">KF</span><span class="brand-name">Kamylle Frazão<small>Arquitetura</small></span></a><p>Arquitetura com sensibilidade, propósito e beleza para viver melhor.</p></div>
+        <div><h3>Navegação</h3><a href="#sobre">Sobre mim</a><a href="#projetos">Projetos</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a></div>
+        <div><h3>Serviços</h3><a href="#servicos">Arquitetura</a><a href="#servicos">Interiores</a><a href="#servicos">Acompanhamento</a><a href="#servicos">Consultoria</a></div>
+        <div><h3>Inspirações</h3><p>Receba novidades e inspirações do universo da arquitetura.</p><form class="newsletter-form"><input aria-label="Seu e-mail" type="email" placeholder="Seu melhor e-mail" /><button aria-label="Inscrever-se" type="submit">→</button></form></div>
+      </div>
+      <div class="shell footer-bottom"><span>© 2026 Kamylle Frazão Arquitetura. Todos os direitos reservados.</span><a href="login.html">Área administrativa</a><a href="#topo">Voltar ao topo ↑</a></div>
+    </footer>
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="./public/js/main.js"></script>
+  </body>
+</html>
