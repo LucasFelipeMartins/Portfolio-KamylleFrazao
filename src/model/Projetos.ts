@@ -59,8 +59,6 @@ const projetoSchema = new Schema<Projeto, ProjetosModel>(
 );
 
 const Projetos =
-  (connection.models.Projetos as ProjetosModel | undefined) ??
-  (models.Projetos as ProjetosModel | undefined) ??
-  model<Projeto, ProjetosModel>('Projetos', projetoSchema);
+  (connection.models.Projetos as ProjetosModel | undefined) ?? (models.Projetos as ProjetosModel | undefined) ?? model<Projeto, ProjetosModel>('Projetos', projetoSchema);
 
 export { Projetos };

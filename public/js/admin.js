@@ -10,13 +10,42 @@ function showToast(message) {
 }
 
 const loginForm = document.querySelector('[data-login-form]');
-loginForm?.addEventListener('submit', (event) => {
+loginForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!loginForm.checkValidity()) { loginForm.reportValidity(); return; }
+  if (!loginForm.checkValidity()) {
+    loginForm.reportValidity();
+    return;
+  }
   const submit = loginForm.querySelector('button[type="submit"]');
   submit.textContent = 'Entrando...';
   submit.disabled = true;
-  setTimeout(() => { window.location.href = 'admin.html'; }, 450);
+
+  const formData = new FormData(loginForm);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (result.redirectUrl) {
+      window.location.href = result.redirectUrl;
+    } else if (result.error) {
+      showToast(result.error);
+      submit.textContent = 'Entrar no painel';
+      submit.disabled = false;
+    }
+  } catch (error) {
+    showToast('Ocorreu um erro, tente novamente');
+    submit.textContent = 'Entrar no painel';
+    submit.disabled = false;
+  }
 });
 
 document.querySelector('.password-toggle')?.addEventListener('click', (event) => {

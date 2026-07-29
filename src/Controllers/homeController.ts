@@ -1,14 +1,14 @@
 import { RequestHandler } from 'express';
-/*import { Projetos } from '../model/Projetos';*/
+import { Projetos } from '../model/Projetos';
 
 export const home: RequestHandler = async (_req, res) => {
   try {
 
-    /*const list = await Projetos.getall();*/
-    /*const ProjetosJson = JSON.stringify(list);*/
+    const list = await Projetos.GetAll();
+    const ProjetosJson = JSON.stringify(list);
 
     res.render('index', {
-      //ProjetosJson,
+      ProjetosJson,
     });
 
   } catch (error) {
