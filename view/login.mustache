@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Acesso ao painel de Kamylle Frazão Arquitetura." />
+  <title>Entrar | Kamylle Frazão Arquitetura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./public/css/styles.css" />
+  <link rel="stylesheet" href="./public/css/admin.css" />
+</head>
+
+<body class="login-body">
+  <main class="login-page">
+    <a class="login-back" href="index.html"><span>←</span> Voltar para o site</a>
+    <div class="login-decoration login-arch-one"></div>
+    <div class="login-decoration login-arch-two"></div>
+    <div class="login-dot-grid">✦&nbsp; ✦<br />&nbsp;✦</div>
+    <section class="login-card" aria-labelledby="login-title">
+      <a class="brand login-brand" href="index.html"><img src="./public/assets/images/logo.jpg"
+          alt="Monograma KF" /><span class="brand-name">Kamylle Frazão<small>Arquitetura</small></span></a>
+      <div class="login-copy">
+        <p class="eyebrow">Área administrativa</p>
+        <h1 id="login-title">Bem-vinda de <em>volta.</em></h1>
+        <p>Acesse seu painel para manter seu portfólio sempre atualizado.</p>
+      </div>
+      <form class="login-form" data-login-form>
+        <label>Nome de usuário<input required name="usuario" type="text" autocomplete="username"
+            placeholder="Seu nome de usuário" /></label>
+        <label>Senha<div class="password-wrap"><input required name="senha" type="password"
+              autocomplete="current-password" placeholder="Sua senha" /><button type="button" class="password-toggle"
+              aria-label="Exibir senha">◉</button></div></label>
+        <div class="form-options"><label class="check-label"><input type="checkbox"
+              name="lembrar" /><span></span>Lembrar de mim</label><a href="#recuperar">Esqueci minha senha</a></div>
+        <button class="button button-primary login-submit" type="submit">Entrar no painel <span
+            aria-hidden="true">→</span></button>
+      </form>
+      <p class="login-help">Acesso exclusivo para administração do conteúdo.</p>
+    </section>
+    <p class="login-copyright">© 2026 Kamylle Frazão Arquitetura</p>
+  </main>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="./public/js/admin.js"></script>
+</body>
+
+</html>
