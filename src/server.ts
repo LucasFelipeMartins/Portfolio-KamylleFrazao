@@ -4,6 +4,7 @@ import mustache from 'mustache-express';
 import dotenv from 'dotenv';
 import mainRouter from './router/index';
 import { mongoConnect } from './database/mongo';
+import methodOverride from 'method-override';
 
 import Session from 'express-session';
 
@@ -16,6 +17,8 @@ const server = express()
 server.set('view engine', 'mustache');
 server.set('views', path.join(__dirname, '../src/view'));
 server.engine('mustache', mustache());
+
+server.use(methodOverride('_method'));
 
 server.use(express.static(path.join(__dirname, '../public')));
 

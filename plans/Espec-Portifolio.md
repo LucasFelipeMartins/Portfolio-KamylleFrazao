@@ -225,3 +225,4 @@ O desenvolvimento será considerado fiel quando respeitar integralmente a compos
 • Manter a estética editorial, suave e sofisticada.
 • Garantir usabilidade no login e no painel adm.
 • Preservar respiro, proporção e hierarquia visual.
+

@@ -71,7 +71,8 @@ const panels = document.querySelectorAll('[data-panel-content]');
 const breadcrumb = document.querySelector('[data-breadcrumb]');
 const panelTitles = {
   dashboard: 'VisÃ£o geral', projects: 'Projetos', about: 'Sobre mim', services: 'ServiÃ§os',
-  testimonials: 'Depoimentos', settings: 'ConfiguraÃ§Ãµes', 'project-editor': 'Novo projeto'
+  testimonials: 'Depoimentos', settings: 'ConfiguraÃ§Ãµes', 'project-editor': 'Novo projeto',
+  'service-editor': 'Novo serviÃ§o', 'testimonial-editor': 'Novo depoimento'
 };
 
 function openPanel(name) {
@@ -91,8 +92,8 @@ navItems.forEach((item) => item.addEventListener('click', (event) => {
 }));
 document.querySelectorAll('[data-go-panel]').forEach((item) => item.addEventListener('click', () => openPanel(item.dataset.goPanel)));
 document.querySelectorAll('[data-add-project], [data-edit-project]').forEach((item) => item.addEventListener('click', () => openPanel('project-editor')));
-document.querySelectorAll('[data-add-service]').forEach((item) => item.addEventListener('click', () => showToast('FormulÃ¡rio para adicionar serviÃ§o aberto.')));
-document.querySelectorAll('[data-add-testimonial]').forEach((item) => item.addEventListener('click', () => showToast('FormulÃ¡rio para adicionar depoimento aberto.')));
+document.querySelectorAll('[data-add-service], [data-edit-service]').forEach((item) => item.addEventListener('click', () => openPanel('service-editor')));
+document.querySelectorAll('[data-add-testimonial], [data-edit-testimonial]').forEach((item) => item.addEventListener('click', () => openPanel('testimonial-editor')));
 
 document.querySelectorAll('[data-save], [data-toast]').forEach((item) => item.addEventListener('click', () => showToast(item.dataset.save || item.dataset.toast)));
 document.querySelectorAll('[data-save-form]').forEach((form) => form.addEventListener('submit', (event) => {
@@ -123,8 +124,8 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') toggleSidebar(false);
 });
 
-// Adiciona um evento para fazer logout quando o usuário sai da página
+// Adiciona um evento para fazer logout quando o usuï¿½rio sai da pï¿½gina
 window.addEventListener('beforeunload', () => {
-  // navigator.sendBeacon é a forma mais confiável de enviar uma requisição ao sair da página
+  // navigator.sendBeacon ï¿½ a forma mais confiï¿½vel de enviar uma requisiï¿½ï¿½o ao sair da pï¿½gina
   navigator.sendBeacon('/logout');
 });

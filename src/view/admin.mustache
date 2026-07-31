@@ -11,28 +11,25 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
 </head>
 
 <body class="admin-body">
   <div class="admin-layout">
     <aside class="admin-sidebar" aria-label="Navegação administrativa">
-      <div class="sidebar-top"><a class="brand admin-brand" href="index.html"><img src="assets/images/logo.jpg"
+      <div class="sidebar-top"><a class="brand admin-brand" href="index.html"><img src="/assets/images/logo.jpg"
             alt="Monograma KF" /><span class="brand-name">Kamylle Frazão<small>Arquitetura</small></span></a><button
           class="sidebar-close" type="button" aria-label="Fechar menu">×</button></div>
       <nav class="admin-nav">
         <p>MENU PRINCIPAL</p>
         <a class="is-active" href="#dashboard" data-panel="dashboard"><span>⌂</span> Visão geral</a>
-        <a href="#projetos" data-panel="projects"><span>▧</span> Projetos <b>12</b></a>
+        <a href="#projetos" data-panel="projects"><span>▧</span> Projetos <b>{{projetos.length}}</b></a>
         <a href="#sobre" data-panel="about"><span>◯</span> Sobre mim</a>
         <a href="#servicos" data-panel="services"><span>◇</span> Serviços</a>
         <a href="#depoimentos" data-panel="testimonials"><span>❝</span> Depoimentos</a>
-        <p>CONFIGURAÇÕES</p>
-        <a href="#configuracoes" data-panel="settings"><span>⚙</span> Configurações</a>
-        <a href="index.html" target="_blank"><span>↗</span> Ver site</a>
       </nav>
-      <div class="sidebar-user"><img src="assets/images/arquiteta.jpeg" alt="Kamylle Frazão" />
+      <div class="sidebar-user"><img src="/assets/images/arquiteta.jpeg" alt="Kamylle Frazão" />
         <div><strong>Kamylle Frazão</strong><small>Administradora</small></div><a href="/logout" title="Sair"
           aria-label="Sair do painel">↪</a>
       </div>
@@ -40,10 +37,10 @@
     <div class="admin-main-wrap">
       <header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Abrir menu">☰</button>
         <div class="breadcrumb"><span>Admin</span><b>/</b><strong data-breadcrumb>Visão geral</strong></div>
-        <div class="topbar-actions"><a href="index.html" target="_blank" class="view-site">Ver site
+        <div class="topbar-actions"><a href="/" target="_blank" class="view-site">Ver site
             <span>↗</span></a><button class="notification-button" type="button"
             aria-label="Notificações">♧<i></i></button><button class="admin-user-button" type="button"><img
-              src="assets/images/arquiteta.jpeg" alt="Kamylle Frazão" /><span>Kamylle <small>⌄</small></span></button>
+              src="/assets/images/arquiteta.jpeg" alt="Kamylle Frazão" /><span>Kamylle <small>⌄</small></span></button>
         </div>
       </header>
       <main class="admin-main">
@@ -51,7 +48,7 @@
           aria-labelledby="dashboard-title">
           <div class="page-heading">
             <div>
-              <p class="admin-overline">TERÇA-FEIRA, 29 DE JULHO</p>
+              <p class="admin-overline">{{formattedDate}}</p>
               <h1 id="dashboard-title">Olá, Kamylle <em>✦</em></h1>
               <p>Acompanhe o que está acontecendo no seu portfólio.</p>
             </div><button class="button button-primary" type="button" data-add-project>+ Novo projeto</button>
@@ -59,17 +56,17 @@
           <div class="stat-grid">
             <article class="stat-card"><span class="stat-icon icon-burgundy">▧</span>
               <div>
-                <p>Projetos publicados</p><strong>12</strong><small class="trend up">↗ 2 este mês</small>
+                <p>Projetos publicados</p><strong>{{projectCount}}</strong>
               </div>
             </article>
             <article class="stat-card"><span class="stat-icon icon-pink">◇</span>
               <div>
-                <p>Serviços ativos</p><strong>4</strong><small>Todos atualizados</small>
+                <p>Serviços ativos</p><strong>{{serviceCount}}</strong>
               </div>
             </article>
             <article class="stat-card"><span class="stat-icon icon-sand">❝</span>
               <div>
-                <p>Depoimentos</p><strong>8</strong><small class="trend up">↗ 1 novo esta semana</small>
+                <p>Depoimentos</p><strong>{{testimonialCount}}</strong>
               </div>
             </article>
             <article class="stat-card"><span class="stat-icon icon-cream">◎</span>
@@ -87,43 +84,13 @@
                 </div><button class="small-link" type="button" data-go-panel="projects">Ver todos →</button>
               </div>
               <div class="project-list">
-                <article><img src="assets/images/Projeto1.jpg" alt="Projeto Refúgio Urbano" />
-                  <div><strong>Refúgio Urbano</strong><span>Interiores · São Paulo, SP</span></div><time>Hoje,
+                {{#projetos}}
+                <article><img src="{{urlImagem}}" alt="Projeto {{nome}}" />
+                  <div><strong>{{nome}}</strong><span>{{tipoDeProjeto}} · {{endereco.cidade}}, {{endereco.estado}}</span></div><time>Hoje,
                     10:32</time><span class="status published">Publicado</span><button class="row-more" type="button"
                     aria-label="Ações do projeto">•••</button>
                 </article>
-                <article><img src="assets/images/Projeto2.jpg" alt="Projeto Casa Horizonte" />
-                  <div><strong>Casa Horizonte</strong><span>Residencial · Ribeirão Preto, SP</span></div><time>Ontem,
-                    15:10</time><span class="status published">Publicado</span><button class="row-more" type="button"
-                    aria-label="Ações do projeto">•••</button>
-                </article>
-                <article><img src="assets/images/Projeto3.jpg" alt="Projeto Ateliê Alma" />
-                  <div><strong>Ateliê Alma</strong><span>Comercial · Campinas, SP</span></div><time>22 Jul,
-                    09:45</time><span class="status draft">Rascunho</span><button class="row-more" type="button"
-                    aria-label="Ações do projeto">•••</button>
-                </article>
-              </div>
-            </section>
-            <section class="admin-card activity-card">
-              <div class="card-heading">
-                <div>
-                  <h2>Atividade recente</h2>
-                  <p>O que mudou por aqui</p>
-                </div>
-              </div>
-              <div class="activity-list">
-                <article><span class="activity-dot dot-burgundy">↥</span>
-                  <p><strong>Refúgio Urbano</strong> foi atualizado<span>Hoje, às 10:32</span></p>
-                </article>
-                <article><span class="activity-dot dot-pink">✦</span>
-                  <p>Novo depoimento de <strong>Camila Ferreira</strong><span>Ontem, às 17:26</span></p>
-                </article>
-                <article><span class="activity-dot dot-sand">✓</span>
-                  <p>Alterações em <strong>Sobre mim</strong> publicadas<span>28 de julho, às 09:15</span></p>
-                </article>
-                <article><span class="activity-dot dot-cream">◇</span>
-                  <p>Serviço <strong>Consultoria</strong> atualizado<span>25 de julho, às 13:41</span></p>
-                </article>
+                {{/projetos}}
               </div>
             </section>
           </div>
@@ -159,126 +126,94 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {{#projetos}}
                   <tr>
                     <td>
-                      <div class="table-project"><img src="assets/images/Projeto1.jpg" alt="" />
-                        <div><strong>Refúgio Urbano</strong><span>São Paulo, SP</span></div>
+                      <div class="table-project"><img src="{{urlImagem}}" alt="" />
+                        <div><strong>{{nome}}</strong><span>{{endereco.cidade}}, {{endereco.estado}}</span></div>
                       </div>
                     </td>
-                    <td>Interiores</td>
+                    <td>{{tipoDeProjeto}}</td>
                     <td>Hoje, 10:32</td>
                     <td><span class="status published">Publicado</span></td>
                     <td>
-                      <div class="table-actions"><button data-edit-project title="Editar"
-                          type="button">✎</button><button title="Duplicar" type="button"
+                      <div class="table-actions">
+                        <a href="/admin/projetos/{{_id}}" data-edit-project title="Editar" type="button">✎</a>
+                        <button title="Duplicar" type="button"
                           data-toast="Projeto duplicado como rascunho.">⧉</button><button title="Visualizar"
-                          type="button" data-toast="Prévia do projeto aberta.">↗</button><button class="delete-action"
-                          title="Excluir" type="button" data-delete="Refúgio Urbano">⌫</button></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="table-project"><img src="assets/images/Projeto2.jpg" alt="" />
-                        <div><strong>Casa Horizonte</strong><span>Ribeirão Preto, SP</span></div>
+                          type="button" data-toast="Prévia do projeto aberta.">↗</button>
+                          <form action="/admin/projetos/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                            <button class="delete-action" title="Excluir" type="submit" data-delete="{{nome}}">⌫</button>
+                          </form>
                       </div>
                     </td>
-                    <td>Residencial</td>
-                    <td>28 jul, 15:10</td>
-                    <td><span class="status published">Publicado</span></td>
-                    <td>
-                      <div class="table-actions"><button data-edit-project title="Editar"
-                          type="button">✎</button><button title="Duplicar" type="button"
-                          data-toast="Projeto duplicado como rascunho.">⧉</button><button title="Visualizar"
-                          type="button" data-toast="Prévia do projeto aberta.">↗</button><button class="delete-action"
-                          title="Excluir" type="button" data-delete="Casa Horizonte">⌫</button></div>
-                    </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div class="table-project"><img src="assets/images/Projeto3.jpg" alt="" />
-                        <div><strong>Ateliê Alma</strong><span>Campinas, SP</span></div>
-                      </div>
-                    </td>
-                    <td>Comercial</td>
-                    <td>22 jul, 09:45</td>
-                    <td><span class="status draft">Rascunho</span></td>
-                    <td>
-                      <div class="table-actions"><button data-edit-project title="Editar"
-                          type="button">✎</button><button title="Duplicar" type="button"
-                          data-toast="Projeto duplicado como rascunho.">⧉</button><button title="Visualizar"
-                          type="button" data-toast="Prévia do projeto aberta.">↗</button><button class="delete-action"
-                          title="Excluir" type="button" data-delete="Ateliê Alma">⌫</button></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="table-project"><img src="assets/images/Projeto2.jpg" alt="" />
-                        <div><strong>Casa Ipê</strong><span>Araraquara, SP</span></div>
-                      </div>
-                    </td>
-                    <td>Residencial</td>
-                    <td>18 jul, 11:20</td>
-                    <td><span class="status published">Publicado</span></td>
-                    <td>
-                      <div class="table-actions"><button data-edit-project title="Editar"
-                          type="button">✎</button><button title="Duplicar" type="button"
-                          data-toast="Projeto duplicado como rascunho.">⧉</button><button title="Visualizar"
-                          type="button" data-toast="Prévia do projeto aberta.">↗</button><button class="delete-action"
-                          title="Excluir" type="button" data-delete="Casa Ipê">⌫</button></div>
-                    </td>
-                  </tr>
+                  {{/projetos}}
                 </tbody>
               </table>
             </div>
-            <footer class="table-footer"><span>Mostrando <strong>4</strong> de <strong>12</strong> projetos</span>
+            <footer class="table-footer"><span>Mostrando <strong>{{projetos.length}}</strong> de <strong>{{projetos.length}}</strong> projetos</span>
               <div><button disabled>←</button><button
-                  class="is-current">1</button><button>2</button><button>3</button><button>→</button></div>
+                  class="is-current">1</button><button>→</button></div>
             </footer>
           </section>
         </section>
 
         <section class="admin-panel" id="about" data-panel-content="about" aria-labelledby="about-admin-title">
-          <div class="page-heading">
-            <div>
-              <p class="admin-overline">INSTITUCIONAL</p>
-              <h1 id="about-admin-title">Sobre mim</h1>
-              <p>Edite a apresentação que aparece em seu site.</p>
-            </div><button class="button button-primary" type="button"
-              data-save="Alterações em Sobre mim foram salvas.">Salvar alterações</button>
-          </div>
-          <div class="editor-layout">
-            <form class="admin-card editor-card" data-save-form>
-              <div class="field-group"><label for="about-highlight">Frase de destaque</label><input id="about-highlight"
-                  type="text" value="Criar é dar forma ao que importa." /><small>Use uma frase curta e marcante para o
-                  título da seção.</small></div>
-              <div class="field-group"><label>Texto institucional</label>
-                <div class="rich-editor">
-                  <div class="editor-tools"><button type="button" title="Negrito"><b>B</b></button><button type="button"
-                      title="Itálico"><i>I</i></button><button type="button" title="Lista">☷</button><button
-                      type="button" title="Inserir link">⌁</button></div><textarea
-                    rows="13">Sou um profissional apaixonado por tecnologia, design e inovação digital. Gosto de transformar ideias em soluções funcionais, unindo criatividade e lógica para desenvolver experiências modernas e intuitivas.
-
-Atualmente atuo na área de desenvolvimento web e aplicações, com interesse especial em front-end, interfaces responsivas e boas práticas de programação. Estou sempre em busca de novos conhecimentos, acompanhando tendências do mercado e aprimorando minhas habilidades em tecnologias modernas.
-
-Acredito que dedicação, aprendizado contínuo e atenção aos detalhes são fundamentais para criar projetos de qualidade. Meu objetivo é participar de projetos que gerem impacto positivo, proporcionando soluções eficientes e uma excelente experiência para o usuário.
-
-Fora da tecnologia, valorizo momentos de descanso, filmes, jogos e atividades que estimulem a criatividade e o desenvolvimento pessoal.</textarea>
-                </div>
+          <form action="/admin/sobre" method="POST" enctype="multipart/form-data">
+            <div class="page-heading">
+              <div>
+                <p class="admin-overline">INSTITUCIONAL</p>
+                <h1 id="about-admin-title">Sobre mim</h1>
+                <p>Edite a apresentação que aparece em seu site.</p>
               </div>
-              <div class="form-save-mobile"><button class="button button-primary" type="submit">Salvar
-                  alterações</button></div>
-            </form>
-            <aside class="admin-card image-editor">
-              <div class="card-heading">
-                <div>
-                  <h2>Imagem de perfil</h2>
-                  <p>Esta foto aparece nas seções sobre e início.</p>
+              <button class="button button-primary" type="submit" data-save="Alterações em Sobre mim foram salvas.">Salvar alterações</button>
+            </div>
+            <div class="editor-layout">
+              <div class="admin-card editor-card" data-save-form>
+                <div class="field-group">
+                  <label for="about-highlight">Frase de destaque</label>
+                  <input id="about-highlight" name="sobreMimTitulo" type="text" value="{{adm.sobreMimTitulo}}" /><small>Use uma frase curta e marcante para o título da seção.</small>
                 </div>
-              </div><img src="assets/images/arquiteta.jpeg" alt="Foto atual de Kamylle" /><button
-                class="button button-secondary" type="button" data-toast="Seleção de imagem aberta.">Trocar
-                imagem</button><small>JPG ou PNG · tamanho recomendado: 1000 × 1200 px</small>
-            </aside>
-          </div>
+                <div class="field-group">
+                  <label>Texto institucional</label>
+                  <div class="rich-editor">
+                    <div class="editor-tools"><button type="button" title="Negrito"><b>B</b></button><button type="button" title="Itálico"><i>I</i></button><button type="button" title="Lista">☷</button><button type="button" title="Inserir link">⌁</button></div>
+                    <textarea name="sobreMimTexto" rows="13">{{adm.sobreMimTexto}}</textarea>
+                  </div>
+                </div>
+                <div class="form-save-mobile"><button class="button button-primary" type="submit">Salvar alterações</button></div>
+              </div>
+              <aside class="admin-card image-editor">
+                <div class="card-heading">
+                  <div>
+                    <h2>Imagens de perfil</h2>
+                    <p>Estas fotos aparecem nas seções sobre e início.</p>
+                  </div>
+                </div>
+                
+                <div class="field-group">
+                  <label for="imgPrincipal">Imagem Principal (Home)</label>
+                  {{#adm.imgPrincipal}}
+                    <img src="{{adm.imgPrincipal}}" alt="Imagem principal atual" style="max-width: 100%; margin-bottom: 1rem;" />
+                  {{/adm.imgPrincipal}}
+                  <input type="file" name="imgPrincipal" id="imgPrincipal">
+                  <small>JPG ou PNG · A imagem que aparece no início.</small>
+                </div>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #eee;" />
+
+                <div class="field-group">
+                  <label for="imgSecundaria">Imagem Secundária (Sobre)</label>
+                  {{#adm.imgSecundaria}}
+                    <img src="{{adm.imgSecundaria}}" alt="Imagem secundária atual" style="max-width: 100%; margin-bottom: 1rem;" />
+                  {{/adm.imgSecundaria}}
+                  <input type="file" name="imgSecundaria" id="imgSecundaria">
+                  <small>JPG ou PNG · A imagem menor da seção sobre.</small>
+                </div>
+              </aside>
+            </div>
+          </form>
         </section>
 
         <section class="admin-panel" id="services" data-panel-content="services" aria-labelledby="services-admin-title">
@@ -290,38 +225,20 @@ Fora da tecnologia, valorizo momentos de descanso, filmes, jogos e atividades qu
             </div><button class="button button-primary" type="button" data-add-service>+ Adicionar serviço</button>
           </div>
           <div class="service-admin-list">
+            {{#servicos}}
             <article class="admin-card service-admin-item"><span class="drag-handle"
-                title="Arrastar para reordenar">⠿</span><span class="service-admin-icon">⌑</span>
-              <div><strong>Projeto arquitetônico</strong>
-                <p>Desenvolvimento de projetos personalizados que unem estética, funcionalidade e conforto.</p>
-              </div><span class="service-order">01</span>
-              <div class="item-buttons"><button type="button" data-toast="Edição de serviço aberta.">✎</button><button
-                  type="button" class="delete-action" data-delete="Projeto arquitetônico">⌫</button></div>
+                title="Arrastar para reordenar">⠿</span><span class="service-admin-icon">{{{icone}}}</span>
+              <div><strong>{{nome}}</strong>
+                <p>{{descricao}}</p>
+              </div><span class="service-order">{{ordem}}</span>
+              <div class="item-buttons">
+                <a href="/admin/servicos/{{_id}}" type="button" data-edit-service>✎</a>
+                <form action="/admin/servicos/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-action" data-delete="{{nome}}">⌫</button>
+                </form>
+                </div>
             </article>
-            <article class="admin-card service-admin-item"><span class="drag-handle"
-                title="Arrastar para reordenar">⠿</span><span class="service-admin-icon">◫</span>
-              <div><strong>Projeto de interiores</strong>
-                <p>Criação de ambientes internos harmoniosos, sofisticados e funcionais.</p>
-              </div><span class="service-order">02</span>
-              <div class="item-buttons"><button type="button" data-toast="Edição de serviço aberta.">✎</button><button
-                  type="button" class="delete-action" data-delete="Projeto de interiores">⌫</button></div>
-            </article>
-            <article class="admin-card service-admin-item"><span class="drag-handle"
-                title="Arrastar para reordenar">⠿</span><span class="service-admin-icon">⌇</span>
-              <div><strong>Acompanhamento de obras</strong>
-                <p>Suporte técnico durante toda a execução da obra, garantindo qualidade e fidelidade.</p>
-              </div><span class="service-order">03</span>
-              <div class="item-buttons"><button type="button" data-toast="Edição de serviço aberta.">✎</button><button
-                  type="button" class="delete-action" data-delete="Acompanhamento de obras">⌫</button></div>
-            </article>
-            <article class="admin-card service-admin-item"><span class="drag-handle"
-                title="Arrastar para reordenar">⠿</span><span class="service-admin-icon">✧</span>
-              <div><strong>Consultoria arquitetônica</strong>
-                <p>Orientação especializada para otimizar espaços, escolhas e investimentos.</p>
-              </div><span class="service-order">04</span>
-              <div class="item-buttons"><button type="button" data-toast="Edição de serviço aberta.">✎</button><button
-                  type="button" class="delete-action" data-delete="Consultoria arquitetônica">⌫</button></div>
-            </article>
+            {{/servicos}}
           </div>
         </section>
 
@@ -335,141 +252,131 @@ Fora da tecnologia, valorizo momentos de descanso, filmes, jogos e atividades qu
             </div><button class="button button-primary" type="button" data-add-testimonial>+ Novo depoimento</button>
           </div>
           <div class="testimonial-admin-grid">
+            {{#depoimentos}}
             <article class="admin-card testimonial-admin-card">
-              <div class="testimonial-admin-head"><span class="avatar avatar-m">MA</span>
-                <div><strong>Mariana Alves</strong><small>Projeto Residencial</small></div><button class="row-more"
+              <div class="testimonial-admin-head"><span class="avatar avatar-m">{{avatar}}</span>
+                <div><strong>{{nomeCliente}}</strong><small>{{projeto}}</small></div><button class="row-more"
                   type="button" data-toast="Opções do depoimento abertas.">•••</button>
               </div>
-              <blockquote>“Fiquei encantada com o resultado do projeto. O atendimento foi atencioso desde o início e
-                cada detalhe foi pensado para deixar minha casa mais funcional e acolhedora.”</blockquote>
-              <footer><span>Ordem de exibição: <b>01</b></span>
-                <div><button data-toast="Edição de depoimento aberta." type="button">Editar</button><button
-                    class="delete-action" data-delete="depoimento de Mariana Alves" type="button">Excluir</button></div>
-              </footer>
-            </article>
-            <article class="admin-card testimonial-admin-card">
-              <div class="testimonial-admin-head"><span class="avatar avatar-r">RM</span>
-                <div><strong>Ricardo Monteiro</strong><small>Casa Horizonte</small></div><button class="row-more"
-                  type="button" data-toast="Opções do depoimento abertas.">•••</button>
-              </div>
-              <blockquote>“O acompanhamento da obra trouxe muita segurança durante todo o processo. O projeto foi
-                executado exatamente como planejado e o resultado superou minhas expectativas.”</blockquote>
-              <footer><span>Ordem de exibição: <b>02</b></span>
-                <div><button data-toast="Edição de depoimento aberta." type="button">Editar</button><button
-                    class="delete-action" data-delete="depoimento de Ricardo Monteiro" type="button">Excluir</button>
+              <blockquote>“{{texto}}”</blockquote>
+              <footer><span>Ordem de exibição: <b>{{ordem}}</b></span>
+                <div>
+                    <a href="/admin/depoimentos/{{_id}}" data-edit-testimonial type="button">Editar</a>
+                    <form action="/admin/depoimentos/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                        <button class="delete-action" data-delete="depoimento de {{nomeCliente}}" type="submit">Excluir</button>
+                    </form>
                 </div>
               </footer>
             </article>
-            <article class="admin-card testimonial-admin-card">
-              <div class="testimonial-admin-head"><span class="avatar avatar-c">CF</span>
-                <div><strong>Camila Ferreira</strong><small>Consultoria arquitetônica</small></div><button
-                  class="row-more" type="button" data-toast="Opções do depoimento abertas.">•••</button>
-              </div>
-              <blockquote>“A consultoria arquitetônica foi essencial para aproveitar melhor os espaços do meu
-                apartamento. Recebi orientações práticas, criativas e totalmente alinhadas ao meu estilo.”</blockquote>
-              <footer><span>Ordem de exibição: <b>03</b></span>
-                <div><button data-toast="Edição de depoimento aberta." type="button">Editar</button><button
-                    class="delete-action" data-delete="depoimento de Camila Ferreira" type="button">Excluir</button>
-                </div>
-              </footer>
-            </article>
+            {{/depoimentos}}
           </div>
         </section>
 
-        <section class="admin-panel" id="settings" data-panel-content="settings" aria-labelledby="settings-admin-title">
-          <div class="page-heading">
-            <div>
-              <p class="admin-overline">PREFERÊNCIAS</p>
-              <h1 id="settings-admin-title">Configurações</h1>
-              <p>Administre as informações e a segurança da sua conta.</p>
-            </div>
-          </div>
-          <div class="settings-layout">
-            <form class="admin-card settings-card" data-save-form>
-              <div class="card-heading">
-                <div>
-                  <h2>Informações do perfil</h2>
-                  <p>Seus dados de acesso ao painel.</p>
-                </div>
-              </div>
-              <div class="settings-user"><img src="assets/images/arquiteta.jpeg" alt="Kamylle Frazão" />
-                <div><strong>Kamylle Frazão</strong><span>Administradora</span><button type="button"
-                    data-toast="Seleção de imagem aberta.">Alterar foto</button></div>
-              </div>
-              <div class="form-row"><label>Nome<input type="text" value="Kamylle Frazão" /></label><label>E-mail<input
-                    type="email" value="ola@kamyllefrazao.com.br" /></label></div><button class="button button-primary"
-                type="submit">Salvar informações</button>
-            </form>
-            <form class="admin-card settings-card" data-save-form>
-              <div class="card-heading">
-                <div>
-                  <h2>Alterar senha</h2>
-                  <p>Use uma senha forte e exclusiva.</p>
-                </div>
-              </div><label>Senha atual<input type="password" placeholder="Digite sua senha atual" /></label><label>Nova
-                senha<input type="password" placeholder="Mínimo de 8 caracteres" /></label><label>Confirmar nova
-                senha<input type="password" placeholder="Repita a nova senha" /></label><button
-                class="button button-secondary" type="submit">Atualizar senha</button>
-            </form>
-            <section class="admin-card settings-card danger-card">
-              <div class="card-heading">
-                <div>
-                  <h2>Sair do painel</h2>
-                  <p>Encerre sua sessão neste dispositivo.</p>
-                </div>
-              </div>
-              <p>Você precisará informar seu usuário e senha novamente para acessar o painel.</p><a
-                class="button button-danger" href="/logout">Sair da conta</a>
-            </section>
-          </div>
-        </section>
-
-        <section class="admin-panel project-editor-panel" data-panel-content="project-editor"
+        <section class="admin-panel project-editor-panel {{#isEditingProjeto}}is-active{{/isEditingProjeto}}" data-panel-content="project-editor"
           aria-labelledby="project-form-title">
           <div class="page-heading editor-heading">
             <div><button class="back-button" type="button" data-go-panel="projects">← Voltar para projetos</button>
-              <p class="admin-overline">NOVO PROJETO</p>
-              <h1 id="project-form-title">Adicionar projeto</h1>
+              <p class="admin-overline">{{#isEditingProjeto}}EDITAR PROJETO{{/isEditingProjeto}}{{^isEditingProjeto}}NOVO PROJETO{{/isEditingProjeto}}</p>
+              <h1 id="project-form-title">{{#isEditingProjeto}}Editar projeto{{/isEditingProjeto}}{{^isEditingProjeto}}Adicionar projeto{{/isEditingProjeto}}</h1>
               <p>Preencha as informações que serão exibidas no portfólio.</p>
             </div>
             <div class="editor-actions"><button class="button button-secondary" type="button"
                 data-toast="Projeto salvo como rascunho.">Salvar rascunho</button><button class="button button-primary"
-                type="button" data-save="Projeto publicado com sucesso.">Publicar projeto</button></div>
+                type="submit" form="project-form" data-save="Projeto publicado com sucesso.">{{#isEditingProjeto}}Atualizar projeto{{/isEditingProjeto}}{{^isEditingProjeto}}Publicar projeto{{/isEditingProjeto}}</button></div>
           </div>
-          <form class="project-form">
+          <form id="project-form" class="project-form" action="/admin/projetos{{#isEditingProjeto}}/{{projeto._id}}?_method=POST{{/isEditingProjeto}}" method="POST" enctype="multipart/form-data">
             <div class="admin-card project-form-main">
               <div class="field-group"><label for="project-name">Título do projeto</label><input id="project-name"
-                  required type="text" placeholder="Ex.: Casa Horizonte" /></div>
+                  name="project-name" required type="text" placeholder="Ex.: Casa Horizonte" value="{{projeto.nome}}" /></div>
               <div class="form-row">
-                <div class="field-group"><label for="project-category">Categoria</label><select id="project-category">
+                <div class="field-group"><label for="project-category">Categoria</label><select id="project-category" name="project-category">
                     <option>Selecione uma categoria</option>
-                    <option>Residencial</option>
-                    <option>Interiores</option>
-                    <option>Comercial</option>
+                    <option value="residencial" {{#projeto.isResidencial}}selected{{/projeto.isResidencial}}>Residencial</option>
+                    <option value="interiores" {{#projeto.isInteriores}}selected{{/projeto.isInteriores}}>Interiores</option>
+                    <option value="comercial" {{#projeto.isComercial}}selected{{/projeto.isComercial}}>Comercial</option>
                   </select></div>
                 <div class="field-group"><label for="project-location">Localização</label><input id="project-location"
-                    type="text" placeholder="Cidade, UF" /></div>
+                    name="project-location" type="text" placeholder="Cidade, UF" value="{{projeto.endereco.cidade}}, {{projeto.endereco.estado}}" /></div>
               </div>
               <div class="field-group"><label for="project-description">Descrição</label><textarea
-                  id="project-description" rows="6"
-                  placeholder="Conte brevemente a história e os diferenciais deste projeto..."></textarea></div>
+                  id="project-description" name="project-description" rows="6"
+                  placeholder="Conte brevemente a história e os diferenciais deste projeto...">{{projeto.descricao}}</textarea></div>
               <div class="field-group"><label>Status de publicação</label>
-                <div class="radio-group"><label><input checked name="status" type="radio" />
-                    Publicado</label><label><input name="status" type="radio" /> Rascunho</label></div>
+                <div class="radio-group"><label><input checked name="status" type="radio" value="publicado" />
+                    Publicado</label><label><input name="status" type="radio" value="rascunho" /> Rascunho</label></div>
               </div>
             </div>
             <aside class="admin-card upload-card">
               <h2>Imagem principal</h2>
               <p>Escolha uma imagem que represente bem o projeto.</p>
-              <div class="upload-drop"><span>⇧</span><strong>Arraste uma imagem aqui</strong><small>ou clique para
+              <div class="upload-drop">
+                  <input type="file" name="image" />
+                  <span>⇧</span><strong>Arraste uma imagem aqui</strong><small>ou clique para
                   selecionar</small><button type="button" data-toast="Seleção de imagem aberta.">Selecionar
                   arquivo</button></div><small>JPG ou PNG · tamanho recomendado: 1600 × 1000 px</small>
+                {{#projeto.urlImagem}}
+                <img src="{{projeto.urlImagem}}" alt="Imagem atual" style="max-width: 100%; margin-top: 1rem;" />
+                {{/projeto.urlImagem}}
               <div class="gallery-heading">
                 <h3>Galeria</h3><button type="button" data-toast="Seleção de imagens aberta.">+ Adicionar</button>
               </div>
               <div class="empty-gallery">Nenhuma imagem adicionada.</div>
             </aside>
           </form>
+        </section>
+
+        <section class="admin-panel service-editor-panel {{#isEditingServico}}is-active{{/isEditingServico}}" data-panel-content="service-editor"
+          aria-labelledby="service-form-title">
+          <div class="page-heading editor-heading">
+            <div><button class="back-button" type="button" data-go-panel="services">← Voltar para serviços</button>
+              <p class="admin-overline">{{#isEditingServico}}EDITAR SERVIÇO{{/isEditingServico}}{{^isEditingServico}}NOVO SERVIÇO{{/isEditingServico}}</p>
+              <h1 id="service-form-title">{{#isEditingServico}}Editar serviço{{/isEditingServico}}{{^isEditingServico}}Adicionar serviço{{/isEditingServico}}</h1>
+              <p>Preencha as informações do serviço.</p>
+            </div>
+            <div class="editor-actions"><button class="button button-primary"
+                type="submit" form="service-form" data-save="Serviço salvo com sucesso.">{{#isEditingServico}}Atualizar serviço{{/isEditingServico}}{{^isEditingServico}}Publicar serviço{{/isEditingServico}}</button></div>
+          </div>
+          <form id="service-form" class="project-form" action="/admin/servicos{{#isEditingServico}}/{{servico._id}}?_method=POST{{/isEditingServico}}" method="POST">
+            <div class="admin-card project-form-main">
+              <div class="field-group"><label for="servico-nome">Título do serviço</label><input id="servico-nome"
+                  name="nome" required type="text" placeholder="Ex.: Projeto de Interiores" value="{{servico.nome}}" /></div>
+              <div class="field-group"><label for="servico-descricao">Descrição</label><textarea
+                  id="servico-descricao" name="descricao" rows="6"
+                  placeholder="Descreva o serviço...">{{servico.descricao}}</textarea></div>
+                <div class="field-group"><label for="servico-icone">Ícone</label><input id="servico-icone"
+                    name="icone" type="text" placeholder="Ex.: ⌑" value="{{servico.icone}}" /></div>
+                <div class="field-group"><label for="servico-ordem">Ordem</label><input id="servico-ordem"
+                    name="ordem" type="number" placeholder="Ex.: 1" value="{{servico.ordem}}" /></div>
+            </div>
+          </form>
+        </section>
+
+        <section class="admin-panel testimonial-editor-panel {{#isEditingDepoimento}}is-active{{/isEditingDepoimento}}" data-panel-content="testimonial-editor"
+            aria-labelledby="testimonial-form-title">
+            <div class="page-heading editor-heading">
+                <div><button class="back-button" type="button" data-go-panel="testimonials">← Voltar para depoimentos</button>
+                <p class="admin-overline">{{#isEditingDepoimento}}EDITAR DEPOIMENTO{{/isEditingDepoimento}}{{^isEditingDepoimento}}NOVO DEPOIMENTO{{/isEditingDepoimento}}</p>
+                <h1 id="testimonial-form-title">{{#isEditingDepoimento}}Editar depoimento{{/isEditingDepoimento}}{{^isEditingDepoimento}}Adicionar depoimento{{/isEditingDepoimento}}</h1>
+                <p>Preencha as informações do depoimento.</p>
+                </div>
+                <div class="editor-actions"><button class="button button-primary"
+                    type="submit" form="testimonial-form" data-save="Depoimento salvo com sucesso.">{{#isEditingDepoimento}}Atualizar depoimento{{/isEditingDepoimento}}{{^isEditingDepoimento}}Publicar depoimento{{/isEditingDepoimento}}</button></div>
+            </div>
+            <form id="testimonial-form" class="project-form" action="/admin/depoimentos{{#isEditingDepoimento}}/{{depoimento._id}}?_method=POST{{/isEditingDepoimento}}" method="POST">
+                <div class="admin-card project-form-main">
+                <div class="field-group"><label for="depoimento-nome">Nome do Cliente</label><input id="depoimento-nome"
+                    name="nomeCliente" required type="text" placeholder="Ex.: João da Silva" value="{{depoimento.nomeCliente}}" /></div>
+                <div class="field-group"><label for="depoimento-projeto">Projeto</label><input id="depoimento-projeto"
+                    name="projeto" required type="text" placeholder="Ex.: Casa dos Sonhos" value="{{depoimento.projeto}}" /></div>
+                <div class="field-group"><label for="depoimento-texto">Depoimento</label><textarea
+                    id="depoimento-texto" name="texto" rows="6"
+                    placeholder="Escreva o depoimento...">{{depoimento.texto}}</textarea></div>
+                    <div class="field-group"><label for="depoimento-ordem">Ordem</label><input id="depoimento-ordem"
+                        name="ordem" type="number" placeholder="Ex.: 1" value="{{depoimento.ordem}}" /></div>
+                    <div class="field-group"><label for="depoimento-avatar">Avatar (iniciais)</label><input id="depoimento-avatar"
+                        name="avatar" type="text" placeholder="Ex.: JS" value="{{depoimento.avatar}}" /></div>
+                </div>
+            </form>
         </section>
       </main>
     </div>
@@ -483,7 +390,7 @@ Fora da tecnologia, valorizo momentos de descanso, filmes, jogos e atividades qu
         class="button button-danger" type="button" data-confirm-delete>Excluir</button></div>
   </dialog>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="js/admin.js"></script>
+  <script src="/js/admin.js"></script>
 </body>
 
 </html>
