@@ -7,6 +7,7 @@ import routerProjeto from './routerProjeto';
 import routerAbout from './routerAbout';
 import routerServices from './routerServices';
 import routerDepoimento from './routerDepoimento';
+import routerContato from './routerContato';
 
 const router = Router();
 
@@ -22,5 +23,7 @@ router.use('/admin/projetos', routerProjeto);
 router.use('/admin/sobre', routerAbout);
 router.use('/admin/servicos', routerServices);
 router.use('/admin/depoimentos', routerDepoimento);
+
+router.use('/api/contato', routerContato);
 
 export default router;

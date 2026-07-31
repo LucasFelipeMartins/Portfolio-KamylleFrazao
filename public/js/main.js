@@ -55,12 +55,40 @@ function changeTestimonial(direction) {
 document.querySelector('[data-slide="prev"]')?.addEventListener('click', () => changeTestimonial(-1));
 document.querySelector('[data-slide="next"]')?.addEventListener('click', () => changeTestimonial(1));
 
-document.querySelector('[data-contact-form]')?.addEventListener('submit', (event) => {
+document.querySelector('[data-contact-form]')?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   if (!form.checkValidity()) { form.reportValidity(); return; }
-  form.reset();
-  showToast('Mensagem enviada! Em breve entraremos em contato.');
+
+  const button = form.querySelector('button[type="submit"]');
+  const originalLabel = button.textContent;
+  button.disabled = true;
+  button.textContent = 'Enviando...';
+
+  try {
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    const response = await fetch('/api/contato', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      form.reset();
+      showToast(result.message || 'Mensagem enviada! Em breve entraremos em contato.');
+    } else {
+      const error = Array.isArray(result.error) ? result.error.join(' ') : (result.error || 'Não foi possível enviar a mensagem. Tente novamente.');
+      showToast(error);
+    }
+  } catch {
+    showToast('Não foi possível enviar a mensagem. Verifique sua conexão e tente novamente.');
+  } finally {
+    button.disabled = false;
+    button.textContent = originalLabel;
+  }
 });
 
 document.querySelector('.newsletter-form')?.addEventListener('submit', (event) => {

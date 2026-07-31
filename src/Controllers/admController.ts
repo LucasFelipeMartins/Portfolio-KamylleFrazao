@@ -3,14 +3,16 @@ import { Projetos } from '../model/Projetos';
 import { Servico } from '../model/Servico';
 import { Depoimento } from '../model/Depoimento';
 import { Adm } from '../model/Adm';
+import { Mensagem } from '../model/Mensagem';
 import { tipoDeprojeto } from '../types/projeto';
 
 export const admin: RequestHandler = async (_req, res) => {
-    const [projetos, servicos, depoimentos, adm] = await Promise.all([
+    const [projetos, servicos, depoimentos, adm, messageCount] = await Promise.all([
         Projetos.GetAll(),
         Servico.GetAll(),
         Depoimento.GetAll(),
-        Adm.GetDados()
+        Adm.GetDados(),
+        Mensagem.Count()
     ]);
 
     const today = new Date();
@@ -26,6 +28,7 @@ export const admin: RequestHandler = async (_req, res) => {
         projectCount: projetos.length,
         serviceCount: servicos.length,
         testimonialCount: depoimentos.length,
+        messageCount,
         formattedDate,
         adm
     });
