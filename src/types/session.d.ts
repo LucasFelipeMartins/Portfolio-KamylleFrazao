@@ -5,6 +5,7 @@ declare module 'express-serve-static-core' {
   interface Request {
     session: Session & {
       user?: SafeAdm;
+      csrfToken?: string;
     };
   }
 }

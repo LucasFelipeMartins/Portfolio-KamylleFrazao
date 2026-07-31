@@ -1,10 +1,21 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { EnviarEmailContato } from '../services/mailer';
 import { Mensagem } from '../model/Mensagem';
 
 const routerContato = Router();
 
-routerContato.post('/', async (req, res) => {
+const contatoLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (_req, res) => {
+        res.status(429).json({ success: false, error: 'Muitas mensagens enviadas. Aguarde alguns minutos e tente novamente.' });
+    },
+});
+
+routerContato.post('/', contatoLimiter, async (req, res) => {
     const { nome, email, telefone, mensagem } = (req.body ?? {}) as Record<string, unknown>;
 
     const nomeStr = String(nome ?? '').trim();

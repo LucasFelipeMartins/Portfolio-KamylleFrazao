@@ -2,6 +2,7 @@ import { Adm, SafeAdm } from '../types/adm';
 import { connection, model, Model, models, Schema } from 'mongoose';
 import { unlink } from 'fs/promises';
 import path from 'path';
+import bcrypt from 'bcryptjs';
 
 interface DadosSobreMim {
     sobreMimTitulo: string;
@@ -66,7 +67,7 @@ const admSchema = new Schema<Adm, AdmModel>(
   {
     statics: {
         GetDados() {
-            return this.findOne().lean().exec();
+            return this.findOne().select('-Senha').lean().exec();
         },
         async UpdateSobreMim(data: DadosSobreMim, novasImagens?: NovasImagens) {
             const adm = await this.findOne();
@@ -101,14 +102,24 @@ const AdmModel = (connection.models.Adm as AdmModel | undefined) ?? (models.Adm 
 
 export const AdmVerificacao = {
     VerificLogin: async (usuario: string, senha: string): Promise<SafeAdm | null> => {
-        const user = await AdmModel.findOne({ Nome: usuario }).lean().exec();
-        if (user && user.Senha === senha) {
-            // Remove sensitive data before returning
-            const { Senha, ...userWithoutPassword } = user;
-            return userWithoutPassword as SafeAdm;
-        } else {
-            return null;
+        const user = await AdmModel.findOne({ Nome: usuario }).exec();
+        if (!user) return null;
+
+        let senhaOk = false;
+
+        if (user.Senha.startsWith('$2')) {
+            senhaOk = await bcrypt.compare(senha, user.Senha);
+        } else if (user.Senha === senha) {
+            // Migração de senha antiga (texto puro) para hash
+            user.Senha = await bcrypt.hash(senha, 10);
+            await user.save();
+            senhaOk = true;
         }
+
+        if (!senhaOk) return null;
+
+        const { Senha, ...userWithoutPassword } = user.toObject();
+        return userWithoutPassword as SafeAdm;
     }
 }
 

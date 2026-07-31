@@ -67,6 +67,7 @@ document.querySelector('[data-contact-form]')?.addEventListener('submit', async 
 
   try {
     const data = Object.fromEntries(new FormData(form).entries());
+    data._csrf = form.querySelector('[name="_csrf"]')?.value || '';
 
     const response = await fetch('/api/contato', {
       method: 'POST',

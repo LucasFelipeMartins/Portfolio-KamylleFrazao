@@ -6,7 +6,7 @@ import { Adm } from '../model/Adm';
 import { Mensagem } from '../model/Mensagem';
 import { tipoDeprojeto } from '../types/projeto';
 
-export const admin: RequestHandler = async (_req, res) => {
+export const admin: RequestHandler = async (req, res) => {
     const [projetos, servicos, depoimentos, adm, messageCount] = await Promise.all([
         Projetos.GetAll(),
         Servico.GetAll(),
@@ -30,7 +30,8 @@ export const admin: RequestHandler = async (_req, res) => {
         testimonialCount: depoimentos.length,
         messageCount,
         formattedDate,
-        adm
+        adm,
+        csrfToken: req.session.csrfToken
     });
 };
 
@@ -104,7 +105,8 @@ export const editProjeto: RequestHandler = async (req, res) => {
         servicos,
         depoimentos,
         projeto,
-        isEditingProjeto: true
+        isEditingProjeto: true,
+        csrfToken: req.session.csrfToken
     });
 };
 
@@ -158,7 +160,8 @@ export const editServico: RequestHandler = async (req, res) => {
         servicos,
         depoimentos,
         servico,
-        isEditingServico: true
+        isEditingServico: true,
+        csrfToken: req.session.csrfToken
     });
 };
 
@@ -197,7 +200,8 @@ export const editDepoimento: RequestHandler = async (req, res) => {
         servicos,
         depoimentos,
         depoimento,
-        isEditingDepoimento: true
+        isEditingDepoimento: true,
+        csrfToken: req.session.csrfToken
     });
 };
 

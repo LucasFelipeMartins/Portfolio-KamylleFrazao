@@ -142,6 +142,7 @@
                           data-toast="Projeto duplicado como rascunho.">⧉</button><button title="Visualizar"
                           type="button" data-toast="Prévia do projeto aberta.">↗</button>
                           <form action="/admin/projetos/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
                             <button class="delete-action" title="Excluir" type="submit" data-delete="{{nome}}">⌫</button>
                           </form>
                       </div>
@@ -160,6 +161,7 @@
 
         <section class="admin-panel" id="about" data-panel-content="about" aria-labelledby="about-admin-title">
           <form action="/admin/sobre" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <div class="page-heading">
               <div>
                 <p class="admin-overline">INSTITUCIONAL</p>
@@ -244,6 +246,7 @@
               <div class="item-buttons">
                 <a href="/admin/servicos/{{_id}}" type="button" data-edit-service>✎</a>
                 <form action="/admin/servicos/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
                     <button type="submit" class="delete-action" data-delete="{{nome}}">⌫</button>
                 </form>
                 </div>
@@ -273,6 +276,7 @@
                 <div>
                     <a href="/admin/depoimentos/{{_id}}" data-edit-testimonial type="button">Editar</a>
                     <form action="/admin/depoimentos/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
                         <button class="delete-action" data-delete="depoimento de {{nomeCliente}}" type="submit">Excluir</button>
                     </form>
                 </div>
@@ -295,6 +299,7 @@
                 type="submit" form="project-form" data-save="Projeto publicado com sucesso.">{{#isEditingProjeto}}Atualizar projeto{{/isEditingProjeto}}{{^isEditingProjeto}}Publicar projeto{{/isEditingProjeto}}</button></div>
           </div>
           <form id="project-form" class="project-form" action="/admin/projetos{{#isEditingProjeto}}/{{projeto._id}}?_method=POST{{/isEditingProjeto}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <div class="admin-card project-form-main">
               <div class="field-group"><label for="project-name">Título do projeto</label><input id="project-name"
                   name="project-name" required type="text" placeholder="Ex.: Casa Horizonte" value="{{projeto.nome}}" /></div>
@@ -347,6 +352,7 @@
                 type="submit" form="service-form" data-save="Serviço salvo com sucesso.">{{#isEditingServico}}Atualizar serviço{{/isEditingServico}}{{^isEditingServico}}Publicar serviço{{/isEditingServico}}</button></div>
           </div>
           <form id="service-form" class="project-form" action="/admin/servicos{{#isEditingServico}}/{{servico._id}}?_method=POST{{/isEditingServico}}" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <div class="admin-card project-form-main">
               <div class="field-group"><label for="servico-nome">Título do serviço</label><input id="servico-nome"
                   name="nome" required type="text" placeholder="Ex.: Projeto de Interiores" value="{{servico.nome}}" /></div>
@@ -373,6 +379,7 @@
                     type="submit" form="testimonial-form" data-save="Depoimento salvo com sucesso.">{{#isEditingDepoimento}}Atualizar depoimento{{/isEditingDepoimento}}{{^isEditingDepoimento}}Publicar depoimento{{/isEditingDepoimento}}</button></div>
             </div>
             <form id="testimonial-form" class="project-form" action="/admin/depoimentos{{#isEditingDepoimento}}/{{depoimento._id}}?_method=POST{{/isEditingDepoimento}}" method="POST">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
                 <div class="admin-card project-form-main">
                 <div class="field-group"><label for="depoimento-nome">Nome do Cliente</label><input id="depoimento-nome"
                     name="nomeCliente" required type="text" placeholder="Ex.: João da Silva" value="{{depoimento.nomeCliente}}" /></div>

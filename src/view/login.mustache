@@ -30,6 +30,7 @@
         <p>Acesse seu painel para manter seu portfólio sempre atualizado.</p>
       </div>
       <form class="login-form" data-login-form method="POST" action="/login">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
         <label>Nome de usuário<input required name="usuario" type="text" autocomplete="username"
             placeholder="Seu nome de usuário" /></label>
         <label>Senha<div class="password-wrap"><input required name="senha" type="password"

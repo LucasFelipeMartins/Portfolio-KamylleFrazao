@@ -21,7 +21,8 @@ export const home: RequestHandler = async (_req, res) => {
       adm,
       projetos,
       servicos,
-      depoimentos
+      depoimentos,
+      csrfToken: _req.session.csrfToken
     });
 
   } catch (error) {
@@ -31,7 +32,8 @@ export const home: RequestHandler = async (_req, res) => {
       projetos: [],
       adm: null,
       servicos: [],
-      depoimentos: []
+      depoimentos: [],
+      csrfToken: _req.session.csrfToken
     });
 
   }

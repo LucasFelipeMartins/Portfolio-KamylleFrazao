@@ -143,6 +143,7 @@
       <section class="contact section shell" id="contato" aria-labelledby="contact-title">
         <div class="contact-intro reveal"><p class="eyebrow">Entre em contato</p><h2 id="contact-title">Vamos conversar sobre seu <em>projeto?</em></h2><p>Conte um pouco sobre o que você imagina. Em breve, retorno para começarmos essa jornada.</p><ul class="contact-list"><li><span>✆</span><a href="tel:+5516999999999">(16) 99999-9999</a></li><li><span>✉</span><a href="mailto:ola@kamyllefrazão.com.br">ola@kamyllefrazão.com.br</a></li><li><span>◎</span><a href="#topo">@kamyllefrazao.arq</a></li><li><span>⌖</span><span>Ribeirão Preto, SP</span></li></ul></div>
         <form class="contact-form card-surface reveal" data-contact-form>
+          <input type="hidden" name="_csrf" value="{{csrfToken}}" />
           <div class="form-row"><label>Nome<input required name="nome" type="text" placeholder="Como você gostaria de ser chamado?" /></label><label>E-mail<input required name="email" type="email" placeholder="voce@email.com" /></label></div>
           <label>Telefone<input name="telefone" type="tel" placeholder="(00) 00000-0000" /></label>
           <label>Mensagem<textarea required name="mensagem" rows="5" placeholder="Me conte um pouco sobre o seu projeto..."></textarea></label>

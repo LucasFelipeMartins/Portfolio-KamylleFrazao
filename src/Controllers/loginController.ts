@@ -1,17 +1,25 @@
 import { RequestHandler } from 'express';
 import { Adm, AdmVerificacao } from '../model/Adm';
 
-export const login: RequestHandler = async (_req, res) => {
-    res.render('login');
+export const login: RequestHandler = async (req, res) => {
+    res.render('login', {
+        csrfToken: req.session.csrfToken
+    });
 };
 
 export const loginAction: RequestHandler = async (req, res) => {
-    const { usuario, senha } = req.body;
+    const { usuario, senha } = (req.body ?? {}) as Record<string, string>;
     try {
         const user = await AdmVerificacao.VerificLogin(usuario, senha);
         if (user) {
-            req.session.user = user;
-            res.json({ redirectUrl: '/adm' });
+            req.session.regenerate((err) => {
+                if (err) {
+                    console.error('Erro ao regenerar sessão:', err);
+                    return res.json({ error: 'Ocorreu um erro, tente novamente' });
+                }
+                req.session.user = user;
+                res.json({ redirectUrl: '/adm' });
+            });
         } else {
             res.json({ error: 'Usuario ou senha invalidos' });
         }
