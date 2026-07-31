@@ -122,3 +122,9 @@ modal?.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') toggleSidebar(false);
 });
+
+// Adiciona um evento para fazer logout quando o usuário sai da página
+window.addEventListener('beforeunload', () => {
+  // navigator.sendBeacon é a forma mais confiável de enviar uma requisição ao sair da página
+  navigator.sendBeacon('/logout');
+});

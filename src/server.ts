@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import mainRouter from './router/index';
 import { mongoConnect } from './database/mongo';
 
+import Session from 'express-session';
+
 dotenv.config()
 
 mongoConnect()
@@ -19,6 +21,13 @@ server.use(express.static(path.join(__dirname, '../public')));
 
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
+
+// Adicione a configuração da sessão aqui
+server.use(Session({
+        secret: process.env.SESSION_SECRET || 'a-secret-key-that-is-long-and-random', // TODO: Mova para variáveis de ambiente
+        resave: false,
+        saveUninitialized: false
+    }));
 
 server.use(mainRouter);
 

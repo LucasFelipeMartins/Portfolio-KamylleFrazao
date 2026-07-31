@@ -1,4 +1,4 @@
-import { Adm } from '../types/adm';
+import { Adm, SafeAdm } from '../types/adm';
 import { connection, model, Model, models, Schema } from 'mongoose';
 
 const admSchema = new Schema<Adm>(
@@ -24,24 +24,19 @@ const admSchema = new Schema<Adm>(
   },
 );
 
-const Adm = (connection.models.Adm as Model<Adm> | undefined) ?? (models.Adm as Model<Adm> | undefined) ?? model<Adm>('Adm', admSchema);
+const AdmModel = (connection.models.Adm as Model<Adm> | undefined) ?? (models.Adm as Model<Adm> | undefined) ?? model<Adm>('Adm', admSchema);
 
-    export const AdmVerificacao = {
-        VerificLogin: async (usuario: string, senha: string): Promise<boolean> => {
-            const user = await Adm.findOne({ Nome: usuario }).lean().exec();
-            if (user && user.Senha === senha) {
-                await Adm.updateOne({ _id: user._id }, { Verificado: true });
-                return true;
-            } else {
-                return false;
-            }
-        },
-
-        logoutAll: async (): Promise<void> => {
-            await Adm.updateMany({}, { Verificado: false });
+export const AdmVerificacao = {
+    VerificLogin: async (usuario: string, senha: string): Promise<SafeAdm | null> => {
+        const user = await AdmModel.findOne({ Nome: usuario }).lean().exec();
+        if (user && user.Senha === senha) {
+            // Remove sensitive data before returning
+            const { Senha, ...userWithoutPassword } = user;
+            return userWithoutPassword as SafeAdm;
+        } else {
+            return null;
         }
     }
+}
 
-
-
-export { Adm };
+export { AdmModel as Adm };

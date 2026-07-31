@@ -5,3 +5,5 @@ export type Adm = {
     imgSecundaria: string,
     Verificado: boolean,
 }
+
+export type SafeAdm = Omit<Adm, 'Senha'>;
