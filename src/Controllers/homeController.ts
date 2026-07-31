@@ -6,10 +6,12 @@ import { Depoimento } from '../model/Depoimento';
 
 export const home: RequestHandler = async (_req, res) => {
   try {
-    const adm = await Adm.findOne().lean();
-    const projetos = await Projetos.find().lean();
-    const servicos = await Servico.find().sort({ ordem: 'asc' }).lean();
-    const depoimentos = await Depoimento.find().sort({ ordem: 'asc' }).lean();
+    const [adm, projetos, servicos, depoimentos] = await Promise.all([
+      Adm.GetDados(),
+      Projetos.GetAll(),
+      Servico.GetAll(),
+      Depoimento.GetAll()
+    ]);
 
     if (depoimentos.length > 0) {
       (depoimentos[0] as any).isVisible = true;

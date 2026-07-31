@@ -18,7 +18,7 @@
 <body class="admin-body">
   <div class="admin-layout">
     <aside class="admin-sidebar" aria-label="Navegação administrativa">
-      <div class="sidebar-top"><a class="brand admin-brand" href="index.html"><img src="/assets/images/logo.jpg"
+      <div class="sidebar-top"><a class="brand admin-brand" href="/"><img src="/assets/images/logo.jpg"
             alt="Monograma KF" /><span class="brand-name">Kamylle Frazão<small>Arquitetura</small></span></a><button
           class="sidebar-close" type="button" aria-label="Fechar menu">×</button></div>
       <nav class="admin-nav">
@@ -29,7 +29,7 @@
         <a href="#servicos" data-panel="services"><span>◇</span> Serviços</a>
         <a href="#depoimentos" data-panel="testimonials"><span>❝</span> Depoimentos</a>
       </nav>
-      <div class="sidebar-user"><img src="/assets/images/arquiteta.jpeg" alt="Kamylle Frazão" />
+      <div class="sidebar-user">
         <div><strong>Kamylle Frazão</strong><small>Administradora</small></div><a href="/logout" title="Sair"
           aria-label="Sair do painel">↪</a>
       </div>
@@ -39,8 +39,7 @@
         <div class="breadcrumb"><span>Admin</span><b>/</b><strong data-breadcrumb>Visão geral</strong></div>
         <div class="topbar-actions"><a href="/" target="_blank" class="view-site">Ver site
             <span>↗</span></a><button class="notification-button" type="button"
-            aria-label="Notificações">♧<i></i></button><button class="admin-user-button" type="button"><img
-              src="/assets/images/arquiteta.jpeg" alt="Kamylle Frazão" /><span>Kamylle <small>⌄</small></span></button>
+            aria-label="Notificações">♧<i></i></button><button class="admin-user-button" type="button"><span>Kamylle <small>⌄</small></span></button>
         </div>
       </header>
       <main class="admin-main">
@@ -210,6 +209,17 @@
                   {{/adm.imgSecundaria}}
                   <input type="file" name="imgSecundaria" id="imgSecundaria">
                   <small>JPG ou PNG · A imagem menor da seção sobre.</small>
+                </div>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #eee;" />
+
+                <div class="field-group">
+                  <label for="portfolio">Portfólio (PDF)</label>
+                  {{#adm.portfolioUrl}}
+                    <a href="{{adm.portfolioUrl}}" target="_blank">Ver portfolio atual</a>
+                  {{/adm.portfolioUrl}}
+                  <input type="file" name="portfolio" id="portfolio">
+                  <small>PDF · O arquivo para download na home.</small>
                 </div>
               </aside>
             </div>

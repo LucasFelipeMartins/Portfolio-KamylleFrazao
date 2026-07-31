@@ -3,6 +3,7 @@ export type Adm = {
     Senha: string,
     imgPrincipal: string,
     imgSecundaria: string,
+    portfolioUrl?: string,
     Verificado: boolean,
     sobreMimTexto?: string;
     sobreMimTitulo?: string;

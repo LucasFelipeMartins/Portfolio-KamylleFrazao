@@ -3,15 +3,14 @@ import { Projetos } from '../model/Projetos';
 import { Servico } from '../model/Servico';
 import { Depoimento } from '../model/Depoimento';
 import { Adm } from '../model/Adm';
-import { unlink } from 'fs/promises';
-import path from 'path';
+import { tipoDeprojeto } from '../types/projeto';
 
 export const admin: RequestHandler = async (_req, res) => {
     const [projetos, servicos, depoimentos, adm] = await Promise.all([
-        Projetos.find().lean(),
-        Servico.find().lean(),
-        Depoimento.find().lean(),
-        Adm.findOne().lean()
+        Projetos.GetAll(),
+        Servico.GetAll(),
+        Depoimento.GetAll(),
+        Adm.GetDados()
     ]);
 
     const today = new Date();
@@ -32,41 +31,19 @@ export const admin: RequestHandler = async (_req, res) => {
     });
 };
 
-// ... (rest of the functions from createProjeto to deleteDepoimento)
-
 // Sobre Mim
 export const updateSobreMim: RequestHandler = async (req, res) => {
     const { sobreMimTitulo, sobreMimTexto } = req.body;
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
     try {
-        const adm = await Adm.findOne();
-        if (!adm) {
-            // Handle case where Adm document doesn't exist
-            // Maybe create one? For now, let's redirect with an error
-            return res.redirect('/adm');
-        }
+        const novasImagens = {
+            imgPrincipal: files.imgPrincipal ? `/assets/images/${files.imgPrincipal[0].filename}` : undefined,
+            imgSecundaria: files.imgSecundaria ? `/assets/images/${files.imgSecundaria[0].filename}` : undefined,
+            portfolioUrl: files.portfolio ? `/assets/images/${files.portfolio[0].filename}` : undefined
+        };
 
-        adm.sobreMimTitulo = sobreMimTitulo;
-        adm.sobreMimTexto = sobreMimTexto;
-
-        if (files.imgPrincipal) {
-            const newImgPrincipal = `/assets/images/${files.imgPrincipal[0].filename}`;
-            if (adm.imgPrincipal) {
-                await unlink(path.join(__dirname, `../../public${adm.imgPrincipal}`)).catch(err => console.error("Failed to delete old imgPrincipal:", err));
-            }
-            adm.imgPrincipal = newImgPrincipal;
-        }
-
-        if (files.imgSecundaria) {
-            const newImgSecundaria = `/assets/images/${files.imgSecundaria[0].filename}`;
-            if (adm.imgSecundaria) {
-                await unlink(path.join(__dirname, `../../public${adm.imgSecundaria}`)).catch(err => console.error("Failed to delete old imgSecundaria:", err));
-            }
-            adm.imgSecundaria = newImgSecundaria;
-        }
-
-        await adm.save();
+        await Adm.UpdateSobreMim({ sobreMimTitulo, sobreMimTexto }, novasImagens);
 
     } catch (error) {
         console.error('Error updating sobre mim:', error);
@@ -78,39 +55,35 @@ export const updateSobreMim: RequestHandler = async (req, res) => {
 
 // Projeto
 export const createProjeto: RequestHandler = async (req, res) => {
-    const {
-        'project-name': nome,
-        'project-category': tipoDeProjeto,
-        'project-location': location,
-        'project-description': descricao
-    } = req.body;
+    const body = req.body as {
+        'project-name': string;
+        'project-category': string;
+        'project-location': string;
+        'project-description': string;
+    };
 
-    const [cidade, estado] = location.split(',').map((item: string) => item.trim());
-    
-    let urlImagem = '';
-    if (req.file) {
-        urlImagem = `/assets/images/${req.file.filename}`;
-    }
+    const [cidade, estado] = body['project-location'].split(',').map((item: string) => item.trim());
 
-    const newProjeto = new Projetos({
-        nome,
-        tipoDeProjeto: tipoDeProjeto.toLowerCase(),
+    const urlImagem = req.file ? `/assets/images/${req.file.filename}` : '';
+
+    await Projetos.Create({
+        nome: body['project-name'],
+        tipoDeProjeto: body['project-category'].toLowerCase() as tipoDeprojeto,
         endereco: {
             cidade,
             estado
         },
-        descricao,
+        descricao: body['project-description'],
         urlImagem
     });
 
-    await newProjeto.save();
     res.redirect('/adm');
 };
 
 export const editProjeto: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const projeto = await Projetos.findById(id).lean();
-    
+    const id = String(req.params.id);
+    const projeto = await Projetos.GetById(id);
+
     if (projeto) {
         (projeto as any).isResidencial = projeto.tipoDeProjeto === 'residencial';
         (projeto as any).isInteriores = projeto.tipoDeProjeto === 'interiores';
@@ -118,9 +91,9 @@ export const editProjeto: RequestHandler = async (req, res) => {
     }
 
     const [projetos, servicos, depoimentos] = await Promise.all([
-        Projetos.find().lean(),
-        Servico.find().lean(),
-        Depoimento.find().lean()
+        Projetos.GetAll(),
+        Servico.GetAll(),
+        Depoimento.GetAll()
     ]);
 
     res.render('admin', {
@@ -133,63 +106,49 @@ export const editProjeto: RequestHandler = async (req, res) => {
 };
 
 export const updateProjeto: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const {
-        'project-name': nome,
-        'project-category': tipoDeProjeto,
-        'project-location': location,
-        'project-description': descricao
-    } = req.body;
+    const id = String(req.params.id);
+    const body = req.body as {
+        'project-name': string;
+        'project-category': string;
+        'project-location': string;
+        'project-description': string;
+    };
 
-    const [cidade, estado] = location.split(',').map((item: string) => item.trim());
+    const [cidade, estado] = body['project-location'].split(',').map((item: string) => item.trim());
 
-    const updateData: any = {
-        nome,
-        tipoDeProjeto: tipoDeProjeto.toLowerCase(),
+    await Projetos.UpdateById(id, {
+        nome: body['project-name'],
+        tipoDeProjeto: body['project-category'].toLowerCase() as tipoDeprojeto,
         endereco: {
             cidade,
             estado
         },
-        descricao
-    };
+        descricao: body['project-description']
+    }, req.file ? `/assets/images/${req.file.filename}` : undefined);
 
-    if (req.file) {
-        const projeto = await Projetos.findById(id);
-        if (projeto && projeto.urlImagem) {
-            await unlink(path.join(__dirname, `../../public${projeto.urlImagem}`));
-        }
-        updateData.urlImagem = `/assets/images/${req.file.filename}`;
-    }
-
-    await Projetos.findByIdAndUpdate(id, updateData);
     res.redirect('/adm');
 };
 
 export const deleteProjeto: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const projeto = await Projetos.findById(id);
-    if (projeto && projeto.urlImagem) {
-        await unlink(path.join(__dirname, `../../public${projeto.urlImagem}`));
-    }
-    await Projetos.findByIdAndDelete(id);
+    const id = String(req.params.id);
+    await Projetos.DeleteById(id);
     res.redirect('/adm');
 };
 
 // Serviço
 export const createServico: RequestHandler = async (req, res) => {
-    const { nome, descricao, icone, ordem } = req.body;
-    const newServico = new Servico({ nome, descricao, icone, ordem });
-    await newServico.save();
+    const body = req.body as { nome: string; descricao: string; icone: string; ordem: string };
+    await Servico.Create({ nome: body.nome, descricao: body.descricao, icone: body.icone, ordem: Number(body.ordem) });
     res.redirect('/adm');
 };
 
 export const editServico: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const servico = await Servico.findById(id).lean();
+    const id = String(req.params.id);
+    const servico = await Servico.GetById(id);
     const [projetos, servicos, depoimentos] = await Promise.all([
-        Projetos.find().lean(),
-        Servico.find().lean(),
-        Depoimento.find().lean()
+        Projetos.GetAll(),
+        Servico.GetAll(),
+        Depoimento.GetAll()
     ]);
     res.render('admin', {
         projetos,
@@ -201,34 +160,33 @@ export const editServico: RequestHandler = async (req, res) => {
 };
 
 export const updateServico: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const { nome, descricao, icone, ordem } = req.body;
-    await Servico.findByIdAndUpdate(id, { nome, descricao, icone, ordem });
+    const id = String(req.params.id);
+    const body = req.body as { nome: string; descricao: string; icone: string; ordem: string };
+    await Servico.UpdateById(id, { nome: body.nome, descricao: body.descricao, icone: body.icone, ordem: Number(body.ordem) });
     res.redirect('/adm');
 };
 
 export const deleteServico: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    await Servico.findByIdAndDelete(id);
+    const id = String(req.params.id);
+    await Servico.DeleteById(id);
     res.redirect('/adm');
 };
 
 // Depoimento
 export const createDepoimento: RequestHandler = async (req, res) => {
-    const { nomeCliente, projeto, texto, ordem, avatar } = req.body;
-    const newDepoimento = new Depoimento({ nomeCliente, projeto, texto, ordem, avatar });
-    await newDepoimento.save();
+    const body = req.body as { nomeCliente: string; projeto: string; texto: string; ordem: string; avatar: string };
+    await Depoimento.Create({ nomeCliente: body.nomeCliente, projeto: body.projeto, texto: body.texto, ordem: Number(body.ordem), avatar: body.avatar });
     res.redirect('/adm');
 };
 
 export const editDepoimento: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const depoimento = await Depoimento.findById(id).lean();
-    
+    const id = String(req.params.id);
+    const depoimento = await Depoimento.GetById(id);
+
     const [projetos, servicos, depoimentos] = await Promise.all([
-        Projetos.find().lean(),
-        Servico.find().lean(),
-        Depoimento.find().lean()
+        Projetos.GetAll(),
+        Servico.GetAll(),
+        Depoimento.GetAll()
     ]);
 
     res.render('admin', {
@@ -241,14 +199,14 @@ export const editDepoimento: RequestHandler = async (req, res) => {
 };
 
 export const updateDepoimento: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const { nomeCliente, projeto, texto, ordem, avatar } = req.body;
-    await Depoimento.findByIdAndUpdate(id, { nomeCliente, projeto, texto, ordem, avatar });
+    const id = String(req.params.id);
+    const body = req.body as { nomeCliente: string; projeto: string; texto: string; ordem: string; avatar: string };
+    await Depoimento.UpdateById(id, { nomeCliente: body.nomeCliente, projeto: body.projeto, texto: body.texto, ordem: Number(body.ordem), avatar: body.avatar });
     res.redirect('/adm');
 };
 
 export const deleteDepoimento: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    await Depoimento.findByIdAndDelete(id);
+    const id = String(req.params.id);
+    await Depoimento.DeleteById(id);
     res.redirect('/adm');
 };

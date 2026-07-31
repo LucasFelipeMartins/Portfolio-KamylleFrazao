@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
     if (allowedMimes.includes(file.mimetype)) {
         cb(null, true);
     } else {
@@ -30,5 +30,6 @@ export const uploadFields = multer({
     fileFilter
 }).fields([
     { name: 'imgPrincipal', maxCount: 1 },
-    { name: 'imgSecundaria', maxCount: 1 }
+    { name: 'imgSecundaria', maxCount: 1 },
+    { name: 'portfolio', maxCount: 1 }
 ]);
