@@ -21,6 +21,20 @@ const admSchema = new Schema<Adm>(
         type: Boolean,
         default: false,
     },
+    sobreMimTexto: {
+        type: String,
+    },
+    sobreMimTitulo: {
+        type: String,
+    },
+    estatisticas: {
+        projetos: { type: Number },
+        servicos: { type: Number },
+        depoimentos: { type: Number },
+        anosAtuacao: { type: Number },
+    },
+    servicos: [{ type: Schema.Types.ObjectId, ref: 'Servico' }],
+    depoimentos: [{ type: Schema.Types.ObjectId, ref: 'Depoimento' }],
   },
 );
 

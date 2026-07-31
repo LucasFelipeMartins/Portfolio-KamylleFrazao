@@ -4,6 +4,16 @@ export type Adm = {
     imgPrincipal: string,
     imgSecundaria: string,
     Verificado: boolean,
+    sobreMimTexto?: string;
+    sobreMimTitulo?: string;
+    estatisticas?: {
+        projetos: number;
+        servicos: number;
+        depoimentos: number;
+        anosAtuacao: number;
+    };
+    servicos?: string[];
+    depoimentos?: string[];
 }
 
 export type SafeAdm = Omit<Adm, 'Senha'>;

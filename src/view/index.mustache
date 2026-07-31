@@ -47,7 +47,7 @@
           <div class="arch arch-one" aria-hidden="true"></div>
           <div class="arch arch-two" aria-hidden="true"></div>
           <figure class="hero-photo">
-            <img src="assets/images/arquiteta.jpeg" alt="Kamylle Frazão sorrindo com flores nas mãos" />
+            <img src="{{adm.imgPrincipal}}" alt="Kamylle Frazão sorrindo com flores nas mãos" />
           </figure>
           <div class="hero-stamp" aria-label="Projetos autorais">
             <span>Projetos</span><strong>autorais</strong><i>✦</i>
@@ -58,17 +58,14 @@
       <section class="about section shell" id="sobre" aria-labelledby="about-title">
         <div class="about-media reveal">
           <div class="about-shape"></div>
-          <img src="assets/images/arquiteta.jpeg" alt="Retrato de Kamylle Frazão" />
+          <img src="{{adm.imgSecundaria}}" alt="Retrato de Kamylle Frazão" />
           <span class="portrait-caption">KF<br /><small>desde 2016</small></span>
         </div>
         <div class="about-content reveal">
           <p class="eyebrow">Sobre mim</p>
-          <h2 id="about-title">Criar é dar forma ao que <em>importa.</em></h2>
+          <h2 id="about-title">{{{adm.sobreMimTitulo}}}</h2>
           <div class="rich-copy">
-            <p>Sou um profissional apaixonado por tecnologia, design e inovação digital. Gosto de transformar ideias em soluções funcionais, unindo criatividade e lógica para desenvolver experiências modernas e intuitivas.</p>
-            <p>Atualmente atuo na área de desenvolvimento web e aplicações, com interesse especial em front-end, interfaces responsivas e boas práticas de programação. Estou sempre em busca de novos conhecimentos, acompanhando tendências do mercado e aprimorando minhas habilidades em tecnologias modernas.</p>
-            <p>Acredito que dedicação, aprendizado contínuo e atenção aos detalhes são fundamentais para criar projetos de qualidade. Meu objetivo é participar de projetos que gerem impacto positivo, proporcionando soluções eficientes e uma excelente experiência para o usuário.</p>
-            <p>Fora da tecnologia, valorizo momentos de descanso, filmes, jogos e atividades que estimulem a criatividade e o desenvolvimento pessoal.</p>
+            {{{adm.sobreMimTexto}}}
           </div>
           <div class="values-grid">
             <div><span class="value-icon">✦</span><strong>Atendimento<br />personalizado</strong></div>
@@ -94,18 +91,12 @@
             <button class="filter" type="button" data-filter="comercial">Comercial</button>
           </div>
           <div class="project-grid">
-            <article class="project-card reveal" data-category="interiores">
-              <a href="#contato" class="project-image"><img src="assets/images/Projeto1.jpg" alt="Ambiente de projeto de interiores" /><span>Ver projeto <b>↗</b></span></a>
-              <div class="project-info"><p>Interiores</p><h3>Refúgio Urbano</h3><span>São Paulo, SP</span><small>Leveza e conforto para desacelerar em meio à cidade.</small></div>
+            {{#projetos}}
+            <article class="project-card reveal" data-category="{{tipoDeProjeto}}">
+              <a href="#contato" class="project-image"><img src="{{urlImagem}}" alt="imagem do projeto {{nome}}" /><span>Ver projeto <b>↗</b></span></a>
+              <div class="project-info"><p>{{tipoDeProjeto}}</p><h3>{{nome}}</h3><span>{{endereco.cidade}}, {{endereco.estado}}</span><small>{{descricao}}</small></div>
             </article>
-            <article class="project-card reveal" data-category="residencial">
-              <a href="#contato" class="project-image"><img src="assets/images/Projeto2.jpg" alt="Fachada de residência contemporânea" /><span>Ver projeto <b>↗</b></span></a>
-              <div class="project-info"><p>Residencial</p><h3>Casa Horizonte</h3><span>Ribeirão Preto, SP</span><small>Volumes, luz natural e conexão com o exterior.</small></div>
-            </article>
-            <article class="project-card reveal" data-category="comercial">
-              <a href="#contato" class="project-image"><img src="assets/images/Projeto3.jpg" alt="Projeto comercial com composição arquitetônica" /><span>Ver projeto <b>↗</b></span></a>
-              <div class="project-info"><p>Comercial</p><h3>Ateliê Alma</h3><span>Campinas, SP</span><small>Um espaço de encontros com identidade e afeto.</small></div>
-            </article>
+            {{/projetos}}
           </div>
           <div class="section-action reveal"><a class="button button-secondary" href="#contato">Ver todos os projetos <span aria-hidden="true">→</span></a></div>
         </div>
@@ -114,10 +105,10 @@
       <section class="experience shell section" aria-labelledby="experience-title">
         <div class="experience-title reveal"><p class="eyebrow">Em cada detalhe</p><h2 id="experience-title">Experiência que se traduz em <em>confiança.</em></h2></div>
         <div class="metrics reveal">
-          <div class="metric"><strong><span data-count="8">0</span>+</strong><p>Anos de<br />atuação</p></div>
-          <div class="metric"><strong><span data-count="120">0</span>+</strong><p>Projetos<br />realizados</p></div>
-          <div class="metric"><strong><span data-count="98">0</span>%</strong><p>Clientes<br />satisfeitos</p></div>
-          <div class="metric"><strong><span data-count="12">0</span></strong><p>Menções e<br />publicações</p></div>
+          <div class="metric"><strong><span data-count="{{adm.estatisticas.anosAtuacao}}">0</span>+</strong><p>Anos de<br />atuação</p></div>
+          <div class="metric"><strong><span data-count="{{adm.estatisticas.projetos}}">0</span>+</strong><p>Projetos<br />realizados</p></div>
+          <div class="metric"><strong><span data-count="{{adm.estatisticas.depoimentos}}">0</span>%</strong><p>Clientes<br />satisfeitos</p></div>
+          <div class="metric"><strong><span data-count="{{adm.estatisticas.servicos}}">0</span></strong><p>Menções e<br />publicações</p></div>
         </div>
       </section>
 
@@ -125,10 +116,9 @@
         <div class="shell">
           <div class="section-heading split-heading reveal"><div><p class="eyebrow">Como posso ajudar</p><h2 id="services-title">Do desejo à <em>realização.</em></h2></div><p>Uma jornada tranquila, transparente e feita sob medida para você.</p></div>
           <div class="service-grid">
-            <article class="service-card reveal"><span class="service-number">01</span><div class="service-icon">⌑</div><h3>Projeto arquitetônico</h3><p>Desenvolvimento de projetos personalizados que unem estética, funcionalidade e conforto, valorizando cada detalhe do seu espaço.</p><a href="#contato" aria-label="Saber mais sobre projeto arquitetônico">→</a></article>
-            <article class="service-card featured reveal"><span class="service-number">02</span><div class="service-icon">◫</div><h3>Projeto de interiores</h3><p>Criação de ambientes internos harmoniosos, sofisticados e funcionais, pensados para refletir o estilo e as necessidades de cada cliente.</p><a href="#contato" aria-label="Saber mais sobre projeto de interiores">→</a></article>
-            <article class="service-card reveal"><span class="service-number">03</span><div class="service-icon">⌇</div><h3>Acompanhamento de obras</h3><p>Suporte técnico durante toda a execução da obra, garantindo qualidade, organização e fidelidade ao projeto aprovado.</p><a href="#contato" aria-label="Saber mais sobre acompanhamento de obras">→</a></article>
-            <article class="service-card reveal"><span class="service-number">04</span><div class="service-icon">✧</div><h3>Consultoria arquitetônica</h3><p>Orientação especializada para auxiliar em decisões de reforma, construção ou decoração, otimizando espaços e investimentos.</p><a href="#contato" aria-label="Saber mais sobre consultoria arquitetônica">→</a></article>
+            {{#servicos}}
+            <article class="service-card reveal"><span class="service-number">0{{ordem}}</span><div class="service-icon">{{{icone}}}</div><h3>{{nome}}</h3><p>{{descricao}}</p><a href="#contato" aria-label="Saber mais sobre {{nome}}">→</a></article>
+            {{/servicos}}
           </div>
         </div>
       </section>
@@ -137,9 +127,9 @@
         <div class="shell testimonials-layout">
           <div class="testimonial-intro reveal"><p class="eyebrow">Palavras que guardo</p><h2 id="testimonial-title">Histórias de quem <em>viveu.</em></h2><div class="slider-controls"><button class="slider-arrow" type="button" data-slide="prev" aria-label="Depoimento anterior">←</button><button class="slider-arrow" type="button" data-slide="next" aria-label="Próximo depoimento">→</button></div></div>
           <div class="testimonial-slider reveal" aria-live="polite">
-            <article class="testimonial is-visible"><span class="quote-mark">“</span><blockquote>Fiquei encantada com o resultado do projeto. O atendimento foi atencioso desde o início e cada detalhe foi pensado para deixar minha casa mais funcional e acolhedora.</blockquote><footer><span class="avatar avatar-m">MA</span><div><strong>Mariana Alves</strong><small>Projeto Residencial</small></div></footer></article>
-            <article class="testimonial"><span class="quote-mark">“</span><blockquote>O acompanhamento da obra trouxe muita segurança durante todo o processo. O projeto foi executado exatamente como planejado e o resultado superou minhas expectativas.</blockquote><footer><span class="avatar avatar-r">RM</span><div><strong>Ricardo Monteiro</strong><small>Projeto Casa Horizonte</small></div></footer></article>
-            <article class="testimonial"><span class="quote-mark">“</span><blockquote>A consultoria arquitetônica foi essencial para aproveitar melhor os espaços do meu apartamento. Recebi orientações práticas, criativas e totalmente alinhadas ao meu estilo.</blockquote><footer><span class="avatar avatar-c">CF</span><div><strong>Camila Ferreira</strong><small>Consultoria de interiores</small></div></footer></article>
+            {{#depoimentos}}
+            <article class="testimonial {{#isVisible}}is-visible{{/isVisible}}"><span class="quote-mark">“</span><blockquote>{{texto}}</blockquote><footer><span class="avatar">{{avatar}}</span><div><strong>{{nomeCliente}}</strong><small>{{projeto}}</small></div></footer></article>
+            {{/depoimentos}}
           </div>
         </div>
       </section>
