@@ -102,13 +102,18 @@ const AdmModel = (connection.models.Adm as AdmModel | undefined) ?? (models.Adm 
 
 export const AdmVerificacao = {
     VerificLogin: async (usuario: string, senha: string): Promise<SafeAdm | null> => {
-        const user = await AdmModel.findOne({ Nome: usuario }).exec();
+        const nome = usuario.trim();
+        const user = await AdmModel.findOne({ Nome: { $regex: new RegExp(`^${escapeRegExp(nome)}$`, 'i') } }).exec();
         if (!user) return null;
 
         let senhaOk = false;
 
         if (user.Senha.startsWith('$2')) {
-            senhaOk = await bcrypt.compare(senha, user.Senha);
+            try {
+                senhaOk = await bcrypt.compare(senha, user.Senha);
+            } catch {
+                senhaOk = false;
+            }
         } else if (user.Senha === senha) {
             // Migração de senha antiga (texto puro) para hash
             user.Senha = await bcrypt.hash(senha, 10);
@@ -121,6 +126,10 @@ export const AdmVerificacao = {
         const { Senha, ...userWithoutPassword } = user.toObject();
         return userWithoutPassword as SafeAdm;
     }
+}
+
+function escapeRegExp(texto: string): string {
+    return texto.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 export { AdmModel as Adm };

@@ -32,9 +32,11 @@
       <form class="login-form" data-login-form method="POST" action="/login">
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
         <label>Nome de usuário<input required name="usuario" type="text" autocomplete="username"
+            autocapitalize="none" autocorrect="off" spellcheck="false"
             placeholder="Seu nome de usuário" /></label>
         <label>Senha<div class="password-wrap"><input required name="senha" type="password"
-              autocomplete="current-password" placeholder="Sua senha" /><button type="button" class="password-toggle"
+              autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false"
+              placeholder="Sua senha" /><button type="button" class="password-toggle"
               aria-label="Exibir senha">◉</button></div></label>
         <div class="form-options"><label class="check-label"><input type="checkbox"
               name="lembrar" /><span></span>Lembrar de mim</label></div>

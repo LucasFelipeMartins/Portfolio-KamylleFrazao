@@ -124,8 +124,10 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') toggleSidebar(false);
 });
 
-// Adiciona um evento para fazer logout quando o usu�rio sai da p�gina
-window.addEventListener('beforeunload', () => {
-  // navigator.sendBeacon � a forma mais confi�vel de enviar uma requisi��o ao sair da p�gina
-  navigator.sendBeacon('/logout');
-});
+// Sair da sessão ao fechar o painel administrativo (não dispara na página de login)
+if (!document.querySelector('[data-login-form]')) {
+  window.addEventListener('beforeunload', () => {
+    // navigator.sendBeacon � a forma mais confi�vel de enviar uma requisi��o ao sair da p�gina
+    navigator.sendBeacon('/logout');
+  });
+}
