@@ -1352,6 +1352,7 @@ h2 em {
 
   .site-header {
     background: rgba(255, 253, 252, .94);
+    backdrop-filter: none;
   }
 
   .navbar {
