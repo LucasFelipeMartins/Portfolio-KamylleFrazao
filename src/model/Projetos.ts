@@ -1,7 +1,6 @@
 import { Projeto, tipoDeprojeto } from '../types/projeto';
 import { connection, model, Model, models, Schema } from 'mongoose';
-import { unlink } from 'fs/promises';
-import path from 'path';
+import { deleteUploadedFile } from '../services/uploadedFiles';
 
 interface DadosProjeto {
   nome: string;
@@ -26,9 +25,7 @@ interface ProjetosModel extends Model<Projeto> {
 }
 
 async function deleteImageFile(urlImagem?: string) {
-    if (!urlImagem) return;
-    await unlink(path.join(__dirname, '../../public', urlImagem))
-        .catch(err => console.error('Falha ao deletar imagem:', err));
+    await deleteUploadedFile(urlImagem);
 }
 
 const projetoSchema = new Schema<Projeto, ProjetosModel>(

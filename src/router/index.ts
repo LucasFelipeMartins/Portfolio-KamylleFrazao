@@ -9,6 +9,7 @@ import routerAbout from './routerAbout';
 import routerServices from './routerServices';
 import routerDepoimento from './routerDepoimento';
 import routerContato from './routerContato';
+import { serveUploadedFile } from '../Controllers/uploadedFileController';
 
 const router = Router();
 
@@ -23,6 +24,7 @@ const loginLimiter = rateLimit({
 });
 
 router.get('/', home);
+router.get('/uploads/:id', serveUploadedFile);
 
 router.get('/login', login);
 router.post('/login', loginLimiter, loginAction);

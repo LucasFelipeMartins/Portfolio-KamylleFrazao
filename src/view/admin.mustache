@@ -304,17 +304,17 @@
               <div class="field-group"><label for="project-name">Título do projeto</label><input id="project-name"
                   name="project-name" required type="text" placeholder="Ex.: Casa Horizonte" value="{{projeto.nome}}" /></div>
               <div class="form-row">
-                <div class="field-group"><label for="project-category">Categoria</label><select id="project-category" name="project-category">
-                    <option>Selecione uma categoria</option>
+                <div class="field-group"><label for="project-category">Categoria</label><select id="project-category" name="project-category" required>
+                    <option value="">Selecione uma categoria</option>
                     <option value="residencial" {{#projeto.isResidencial}}selected{{/projeto.isResidencial}}>Residencial</option>
                     <option value="interiores" {{#projeto.isInteriores}}selected{{/projeto.isInteriores}}>Interiores</option>
                     <option value="comercial" {{#projeto.isComercial}}selected{{/projeto.isComercial}}>Comercial</option>
                   </select></div>
                 <div class="field-group"><label for="project-location">Localização</label><input id="project-location"
-                    name="project-location" type="text" placeholder="Cidade, UF" value="{{projeto.endereco.cidade}}, {{projeto.endereco.estado}}" /></div>
+                name="project-location" type="text" required pattern="[^,]+,\s*[^,]+" title="Informe cidade e estado, separados por vírgula." placeholder="Cidade, UF" value="{{projeto.endereco.cidade}}, {{projeto.endereco.estado}}" /></div>
               </div>
               <div class="field-group"><label for="project-description">Descrição</label><textarea
-                  id="project-description" name="project-description" rows="6"
+                  id="project-description" name="project-description" rows="6" required
                   placeholder="Conte brevemente a história e os diferenciais deste projeto...">{{projeto.descricao}}</textarea></div>
               <div class="field-group"><label>Status de publicação</label>
                 <div class="radio-group"><label><input checked name="status" type="radio" value="publicado" />
@@ -325,7 +325,7 @@
               <h2>Imagem principal</h2>
               <p>Escolha uma imagem que represente bem o projeto.</p>
               <div class="upload-drop">
-                  <input type="file" name="image" />
+                  <input type="file" name="image" accept="image/jpeg,image/png" {{^isEditingProjeto}}required{{/isEditingProjeto}} />
                   <span>⇧</span><strong>Arraste uma imagem aqui</strong><small>ou clique para
                   selecionar</small><button type="button" data-toast="Seleção de imagem aberta.">Selecionar
                   arquivo</button></div><small>JPG ou PNG · tamanho recomendado: 1600 × 1000 px</small>
@@ -357,12 +357,12 @@
               <div class="field-group"><label for="servico-nome">Título do serviço</label><input id="servico-nome"
                   name="nome" required type="text" placeholder="Ex.: Projeto de Interiores" value="{{servico.nome}}" /></div>
               <div class="field-group"><label for="servico-descricao">Descrição</label><textarea
-                  id="servico-descricao" name="descricao" rows="6"
+                  id="servico-descricao" name="descricao" rows="6" required
                   placeholder="Descreva o serviço...">{{servico.descricao}}</textarea></div>
                 <div class="field-group"><label for="servico-icone">Ícone</label><input id="servico-icone"
                     name="icone" type="text" placeholder="Ex.: ⌑" value="{{servico.icone}}" /></div>
                 <div class="field-group"><label for="servico-ordem">Ordem</label><input id="servico-ordem"
-                    name="ordem" type="number" placeholder="Ex.: 1" value="{{servico.ordem}}" /></div>
+                    name="ordem" required min="1" type="number" placeholder="Ex.: 1" value="{{servico.ordem}}" /></div>
             </div>
           </form>
         </section>
@@ -386,12 +386,12 @@
                 <div class="field-group"><label for="depoimento-projeto">Projeto</label><input id="depoimento-projeto"
                     name="projeto" required type="text" placeholder="Ex.: Casa dos Sonhos" value="{{depoimento.projeto}}" /></div>
                 <div class="field-group"><label for="depoimento-texto">Depoimento</label><textarea
-                    id="depoimento-texto" name="texto" rows="6"
+                    id="depoimento-texto" name="texto" rows="6" required
                     placeholder="Escreva o depoimento...">{{depoimento.texto}}</textarea></div>
                     <div class="field-group"><label for="depoimento-ordem">Ordem</label><input id="depoimento-ordem"
-                        name="ordem" type="number" placeholder="Ex.: 1" value="{{depoimento.ordem}}" /></div>
+                        name="ordem" required min="1" type="number" placeholder="Ex.: 1" value="{{depoimento.ordem}}" /></div>
                     <div class="field-group"><label for="depoimento-avatar">Avatar (iniciais)</label><input id="depoimento-avatar"
-                        name="avatar" type="text" placeholder="Ex.: JS" value="{{depoimento.avatar}}" /></div>
+                        name="avatar" required type="text" placeholder="Ex.: JS" value="{{depoimento.avatar}}" /></div>
                 </div>
             </form>
         </section>

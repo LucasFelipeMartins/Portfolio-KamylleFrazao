@@ -9,6 +9,12 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 3200);
 }
 
+const saveError = new URLSearchParams(window.location.search).get('erro');
+if (saveError === 'salvamento') {
+  showToast('Não foi possível salvar as alterações. Revise os campos e tente novamente.');
+  window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+}
+
 const loginForm = document.querySelector('[data-login-form]');
 loginForm?.addEventListener('submit', async (event) => {
   event.preventDefault();

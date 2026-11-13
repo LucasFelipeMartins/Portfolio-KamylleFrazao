@@ -1,8 +1,7 @@
 import { Adm, SafeAdm } from '../types/adm';
 import { connection, model, Model, models, Schema } from 'mongoose';
-import { unlink } from 'fs/promises';
-import path from 'path';
 import bcrypt from 'bcryptjs';
+import { deleteUploadedFile } from '../services/uploadedFiles';
 
 interface DadosSobreMim {
     sobreMimTitulo: string;
@@ -21,9 +20,7 @@ interface AdmModel extends Model<Adm> {
 }
 
 async function deleteImageFile(urlImagem?: string) {
-    if (!urlImagem) return;
-    await unlink(path.join(__dirname, '../../public', urlImagem))
-        .catch(err => console.error('Falha ao deletar imagem:', err));
+    await deleteUploadedFile(urlImagem);
 }
 
 const admSchema = new Schema<Adm, AdmModel>(

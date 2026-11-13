@@ -5,6 +5,7 @@ import { Depoimento } from '../model/Depoimento';
 import { Adm } from '../model/Adm';
 import { Mensagem } from '../model/Mensagem';
 import { tipoDeprojeto } from '../types/projeto';
+import { saveUploadedFile } from '../services/uploadedFiles';
 
 export const admin: RequestHandler = async (req, res) => {
     const [projetos, servicos, depoimentos, adm, messageCount] = await Promise.all([
@@ -38,13 +39,13 @@ export const admin: RequestHandler = async (req, res) => {
 // Sobre Mim
 export const updateSobreMim: RequestHandler = async (req, res) => {
     const { sobreMimTitulo, sobreMimTexto } = req.body;
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const files = (req.files ?? {}) as { [fieldname: string]: Express.Multer.File[] };
 
     try {
         const novasImagens = {
-            imgPrincipal: files.imgPrincipal ? `/assets/images/${files.imgPrincipal[0].filename}` : undefined,
-            imgSecundaria: files.imgSecundaria ? `/assets/images/${files.imgSecundaria[0].filename}` : undefined,
-            portfolioUrl: files.portfolio ? `/assets/images/${files.portfolio[0].filename}` : undefined
+            imgPrincipal: files.imgPrincipal ? await saveUploadedFile(files.imgPrincipal[0]) : undefined,
+            imgSecundaria: files.imgSecundaria ? await saveUploadedFile(files.imgSecundaria[0]) : undefined,
+            portfolioUrl: files.portfolio ? await saveUploadedFile(files.portfolio[0]) : undefined
         };
 
         await Adm.UpdateSobreMim({ sobreMimTitulo, sobreMimTexto }, novasImagens);
@@ -68,7 +69,7 @@ export const createProjeto: RequestHandler = async (req, res) => {
 
     const [cidade, estado] = body['project-location'].split(',').map((item: string) => item.trim());
 
-    const urlImagem = req.file ? `/assets/images/${req.file.filename}` : '';
+    const urlImagem = req.file ? await saveUploadedFile(req.file) : '';
 
     await Projetos.Create({
         nome: body['project-name'],
@@ -129,7 +130,7 @@ export const updateProjeto: RequestHandler = async (req, res) => {
             estado
         },
         descricao: body['project-description']
-    }, req.file ? `/assets/images/${req.file.filename}` : undefined);
+    }, req.file ? await saveUploadedFile(req.file) : undefined);
 
     res.redirect('/adm');
 };

@@ -1,30 +1,14 @@
 import multer from 'multer';
 import { Request } from 'express';
-import crypto from 'crypto';
-import path from 'path';
-
-const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.pdf'];
-const MIME_EXTENSIONS: Record<string, string> = {
+const ALLOWED_MIME_TYPES = {
     'image/jpeg': '.jpg',
     'image/jpg': '.jpg',
     'image/png': '.png',
     'application/pdf': '.pdf'
 };
 
-const storage = multer.diskStorage({
-    destination: (req: Request, file: Express.Multer.File, cb: (error: Error | null, destination: string) => void) => {
-        cb(null, './public/assets/images');
-    },
-    filename: (req: Request, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : MIME_EXTENSIONS[file.mimetype];
-        const randomName = crypto.randomBytes(16).toString('hex');
-        cb(null, `${randomName}${safeExt}`);
-    }
-});
-
 const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    const allowedMimes = Object.keys(MIME_EXTENSIONS);
+    const allowedMimes = Object.keys(ALLOWED_MIME_TYPES);
     if (allowedMimes.includes(file.mimetype)) {
         cb(null, true);
     } else {
@@ -33,7 +17,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilt
 };
 
 const uploadOptions = {
-    storage,
+    storage: multer.memoryStorage(),
     fileFilter,
     limits: {
         fileSize: 5 * 1024 * 1024

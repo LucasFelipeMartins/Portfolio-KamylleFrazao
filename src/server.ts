@@ -99,6 +99,11 @@ server.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
     if (isApi) {
         return res.status(500).json({ success: false, error: 'Erro interno do servidor.' });
     }
+
+    if (req.originalUrl.startsWith('/admin/')) {
+        return res.redirect(303, '/adm?erro=salvamento');
+    }
+
     res.status(500).send('Erro interno do servidor.');
 });
 
