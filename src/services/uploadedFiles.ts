@@ -43,5 +43,12 @@ export async function deleteUploadedFile(url?: string): Promise<void> {
 
 export async function findUploadedFile(id: string): Promise<StoredFile | null> {
     if (!Types.ObjectId.isValid(id)) return null;
-    return UploadedFile.findById(id).lean<StoredFile>().exec();
+
+    const file = await UploadedFile.findById(id).select('contentType data').exec();
+    if (!file) return null;
+
+    return {
+        contentType: file.contentType,
+        data: Buffer.from(file.data)
+    };
 }
