@@ -123,11 +123,3 @@ modal?.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') toggleSidebar(false);
 });
-
-// Sair da sessão ao fechar o painel administrativo (não dispara na página de login)
-if (!document.querySelector('[data-login-form]')) {
-  window.addEventListener('beforeunload', () => {
-    // navigator.sendBeacon � a forma mais confi�vel de enviar uma requisi��o ao sair da p�gina
-    navigator.sendBeacon('/logout');
-  });
-}

@@ -3,7 +3,13 @@ import { Request } from 'express';
 import crypto from 'crypto';
 import path from 'path';
 
-const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png'];
+const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.pdf'];
+const MIME_EXTENSIONS: Record<string, string> = {
+    'image/jpeg': '.jpg',
+    'image/jpg': '.jpg',
+    'image/png': '.png',
+    'application/pdf': '.pdf'
+};
 
 const storage = multer.diskStorage({
     destination: (req: Request, file: Express.Multer.File, cb: (error: Error | null, destination: string) => void) => {
@@ -11,14 +17,14 @@ const storage = multer.diskStorage({
     },
     filename: (req: Request, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) => {
         const ext = path.extname(file.originalname).toLowerCase();
-        const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : file.mimetype === 'image/png' ? '.png' : '.jpg';
+        const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : MIME_EXTENSIONS[file.mimetype];
         const randomName = crypto.randomBytes(16).toString('hex');
         cb(null, `${randomName}${safeExt}`);
     }
 });
 
 const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const allowedMimes = Object.keys(MIME_EXTENSIONS);
     if (allowedMimes.includes(file.mimetype)) {
         cb(null, true);
     } else {
@@ -38,5 +44,6 @@ export const upload = multer(uploadOptions);
 
 export const uploadFields = multer(uploadOptions).fields([
     { name: 'imgPrincipal', maxCount: 1 },
-    { name: 'imgSecundaria', maxCount: 1 }
+    { name: 'imgSecundaria', maxCount: 1 },
+    { name: 'portfolio', maxCount: 1 }
 ]);
